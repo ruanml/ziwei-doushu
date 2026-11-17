@@ -288,17 +288,22 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let assistantText = '';
+      let buffer = '';
+      let streamDone = false;
 
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
-      while (true) {
+      // 收到 [DONE] 即结束（不等连接关闭，网关可能迟迟不关 socket）；跨块的行先攒进 buffer
+      while (!streamDone) {
         const { done, value } = await reader.read();
         if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        for (const line of chunk.split('\n')) {
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+        for (const line of lines) {
           if (!line.startsWith('data: ')) continue;
-          const data = line.slice(6);
-          if (data === '[DONE]') break;
+          const data = line.slice(6).trim();
+          if (data === '[DONE]') { streamDone = true; break; }
           try {
             const delta = JSON.parse(data).delta?.text ?? '';
             assistantText += delta;
@@ -310,6 +315,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
           } catch { /* skip */ }
         }
       }
+      reader.cancel().catch(() => {});
     } catch (e) {
       const missing = e instanceof Error && e.message === 'api-missing';
       setMessages(prev => [...prev, { role: 'assistant', content: missing ? '开源版不含 AI 解读接口（/api/interpret），需要你自己实现后才能用，详见 README「快速开始」。排盘本身不需要任何 API Key。' : '解读失败，请稍后重试。' }]);

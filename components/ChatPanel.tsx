@@ -54,18 +54,22 @@ export default function ChatPanel({ chart }: ChatPanelProps) {
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let assistantText = '';
+      let buffer = '';
+      let streamDone = false;
 
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
-      while (true) {
+      // 收到 [DONE] 即结束（不等连接关闭，网关可能迟迟不关 socket）；跨块的行先攒进 buffer
+      while (!streamDone) {
         const { done, value } = await reader.read();
         if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n');
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
         for (const line of lines) {
           if (line.startsWith('data: ')) {
-            const data = line.slice(6);
-            if (data === '[DONE]') break;
+            const data = line.slice(6).trim();
+            if (data === '[DONE]') { streamDone = true; break; }
             try {
               const parsed = JSON.parse(data);
               const delta = parsed.delta?.text ?? '';
@@ -79,6 +83,7 @@ export default function ChatPanel({ chart }: ChatPanelProps) {
           }
         }
       }
+      reader.cancel().catch(() => {});
     } catch (e) {
       const missing = e instanceof Error && e.message === 'api-missing';
       setMessages(prev => [...prev, {

@@ -184,15 +184,23 @@ const decoder = new TextDecoder();
 const reader = upstream.body.getReader();
 let buffer = '';
 
+let finished = false;
 const stream = new ReadableStream<Uint8Array>({
 async pull(controller) {
+if (finished) return;
+// 终局处理只做一次：发出 [DONE]、关闭下游流、并主动断开上游。
+// 关键点：一旦上游发出 [DONE] 就立即收尾，绝不等上游 socket 自己关闭——
+// 部分聚合网关发完 [DONE] 后会长时间不关连接，干等会让前端一直处于 loading 状态。
+const finish = () => {
+if (finished) return;
+finished = true;
+try { controller.enqueue(encoder.encode('data: [DONE]\n\n')); } catch { /* 流已关闭 */ }
+try { controller.close(); } catch { /* 流已关闭 */ }
+reader.cancel().catch(() => {});
+};
 try {
 const { done, value} = await reader.read();
-if (done) {
-controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-controller.close();
-return;
-}
+if (done) { finish(); return; }
 buffer += decoder.decode(value, { stream: true});
 const lines = buffer.split('\n');
 buffer = lines.pop()?? '';
@@ -200,7 +208,8 @@ for (const line of lines) {
 const t = line.trim();
 if (!t.startsWith('data:')) continue;
 const data = t.slice(5).trim();
-if (!data || data === '[DONE]') continue;
+if (!data) continue;
+if (data === '[DONE]') { finish(); return; }
 try {
 const json = JSON.parse(data);
 const text: string = json.choices?.[0]?.delta?.content?? '';
@@ -211,11 +220,10 @@ controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text}})}\n\
 }
 } catch (e) {
 console.error('[interpret] stream error', e);
-controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-controller.close();
+finish();
 }
 },
-cancel() { reader.cancel().catch(() => {});},
+cancel() { finished = true; reader.cancel().catch(() => {});},
 });
 
 return new Response(stream, {
