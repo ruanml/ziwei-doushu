@@ -47,8 +47,9 @@ export const TOPIC_LABEL: Record<TopicKey, string> = {
   parents:     '父母长辈',
 };
 
+import { GENERATED_STAR_DB } from './star-db-data';
+
 /**
- * 论断内容库（14 主星 × 各宫位语境的详细断语）——核心内容，不在开源范围。
- * 此处置空；知识库 SEO 页因 `exists=false` 生成 0 条静态详情路由，但列表框架仍可运行。
+ * 论断内容库（14 主星 × 13 专题）
  */
-export const STAR_DB: Record<string, unknown> = {};
+export const STAR_DB: Record<string, unknown> = GENERATED_STAR_DB;
