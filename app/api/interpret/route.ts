@@ -19,6 +19,7 @@
 import type { ZiweiChart, Palace} from '@/lib/ziwei/types';
 import { BRANCHES, STEMS} from '@/lib/ziwei/constants';
 import { detectPatterns} from '@/lib/ziwei/patterns';
+import { createInterpretStream } from '@/lib/ai/interpret-stream';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -61,7 +62,7 @@ const l = chart.lunarInfo;
 const lines: string[] = [];
 lines.push(
 `命主：${b.name? `${b.name}，`: ''}${chart.yinYangGender?? (b.gender === 'male'? '男': '女')}；` +
-`公历 ${b.year}年${b.month}月${b.day}日 ${BRANCHES[b.hour]}时生` +
+`排盘用公历 ${b.year}年${b.month}月${b.day}日 ${BRANCHES[b.hour]}时（已按排盘配置处理时间）` +
 `${b.province || b.city? `（出生地 ${b.province?? ''}${b.city?? ''}）`: ''}；` +
 `农历 ${l.lunarYear}年${l.isLeapMonth? '闰': ''}${Math.abs(l.lunarMonth)}月${l.lunarDay}日；` +
 `${l.fourPillars?.length? `四柱 ${l.fourPillars.join(' ')}；`: ''}` +
@@ -71,6 +72,8 @@ lines.push(
 );
 const curDx = chart.daXians?.[chart.currentDaXianIndex];
 if (curDx) lines.push(`当前大限：${curDx.startAge}–${curDx.endAge} 岁，行运${curDx.palaceName}${curDx.stemName? `（宫干 ${curDx.stemName}）`: ''}。`);
+else lines.push('当前年龄没有匹配的大限数据，请勿自行编造当前大限。');
+lines.push('以下为本命十二宫与当前大限信息，未提供独立流年、流月、流日命盘。');
 lines.push('十二宫：');
 for (const p of chart.palaces) {
 const marks = [
@@ -79,7 +82,7 @@ p.isShenGong? '身宫': '',
 p.isCurrentDaXian? '当前大限': '',
 ].filter(Boolean).join('/');
 lines.push(
-`- ${p.name}（${STEMS[p.stem]}${BRANCHES[p.branch]}）${marks? ``: ''}` +
+`- ${p.name}（${STEMS[p.stem]}${BRANCHES[p.branch]}）${marks? `【${marks}】`: ''}` +
 `${p.daXianAge? ` 大限 ${p.daXianAge[0]}–${p.daXianAge[1]}岁；`: '；'}${starText(p)}`
 );
 }
@@ -108,6 +111,10 @@ serializeChart(chart),
 '3. 用与用户最后一句相同的语言回答（默认简体中文），命理术语保留中文原名；语气平实具体，避免空泛的吉凶套话和堆砌辞藻。',
 '4. 谈健康只谈体质倾向与生活作息建议，不做疾病诊断、不预测寿元；谈财务不给具体投资标的；不鼓励任何形式的付费改运。',
 '5. 引用古籍或格局出处时注明来源名称即可，不要伪造原文。',
+'6. 每项主要判断先指出具体宫位、星曜或格局依据，再解释倾向和建议；传统命理解释不等于已发生的事实，不作确定性事件预测。',
+'7. 本次没有提供可核查的倪师逐字原文。即使用户要求引用原话，也不要编写引号、集数或时间码；只能说明这是概括性解释。',
+'8. 区分本命、大限与流年。未提供的流年四化、流月或具体事件时间不可自行补造；问到今年、某月或应期时，先说明数据范围，再给已有命盘能支持的分析。',
+'9. 总览以约600–900个汉字为目标，单主题或追问约300–600字，避免重复前文和冗长开场；保留用户要求的标题。',
 ].join('\n');
 }
 
@@ -126,11 +133,34 @@ return Response.json({ error: `供应商 ${cfg.provider} 缺少 BASE_URL / MODEL
 }
 
 let chart: ZiweiChart;
+let systemPrompt: string;
 let messages: ChatMsg[] = [];
 try {
 const body = await req.json();
 chart = body.chart as ZiweiChart;
-if (!chart ||!Array.isArray(chart.palaces)) throw new Error('bad chart');
+if (!chart || !chart.birthInfo || !chart.lunarInfo ||
+    !Number.isInteger(chart.birthInfo.year) ||
+    !Number.isInteger(chart.birthInfo.month) || chart.birthInfo.month < 1 || chart.birthInfo.month > 12 ||
+    !Number.isInteger(chart.birthInfo.day) || chart.birthInfo.day < 1 || chart.birthInfo.day > 31 ||
+    !Number.isInteger(chart.birthInfo.hour) || chart.birthInfo.hour < 0 || chart.birthInfo.hour > 11 ||
+    !['male', 'female'].includes(chart.birthInfo.gender) ||
+    !Number.isInteger(chart.lunarInfo.lunarYear) ||
+    !Number.isInteger(chart.lunarInfo.lunarMonth) ||
+    !Number.isInteger(chart.lunarInfo.lunarDay) ||
+    !Number.isInteger(chart.mingGongBranch) || chart.mingGongBranch < 0 || chart.mingGongBranch > 11 ||
+    !Number.isInteger(chart.shenGongBranch) || chart.shenGongBranch < 0 || chart.shenGongBranch > 11 ||
+    !Number.isFinite(chart.currentAge) || typeof chart.wuxingJuName !== 'string' ||
+    !Array.isArray(chart.daXians) || !Number.isInteger(chart.currentDaXianIndex) ||
+    !Array.isArray(chart.palaces) || chart.palaces.length !== 12 ||
+    new Set(chart.palaces.map(p => p.branch)).size !== 12 ||
+    chart.palaces.some(p => !Number.isInteger(p.branch) || p.branch < 0 || p.branch > 11 ||
+      !Number.isInteger(p.stem) || p.stem < 0 || p.stem > 9 ||
+      typeof p.name !== 'string' || !Array.isArray(p.stars) ||
+      p.stars.some(s => !s || typeof s.name !== 'string' || typeof s.type !== 'string'))) {
+  throw new Error('bad chart');
+}
+// Serialization errors belong to request validation, before any paid upstream call.
+systemPrompt = buildSystemPrompt(chart);
 if (Array.isArray(body.messages)) {
 messages = body.messages
 .filter((m: ChatMsg) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
@@ -146,7 +176,7 @@ messages = [...messages, { role: 'user', content: '请总览这张命盘：命�
 
 const upstreamBody: Record<string, unknown> = {
 model: cfg.model,
-messages: [{ role: 'system', content: buildSystemPrompt(chart)},...messages],
+messages: [{ role: 'system', content: systemPrompt},...messages],
 stream: true,
 temperature: 0.7,
 max_tokens: 4000,
@@ -159,6 +189,18 @@ upstreamBody.thinking = { type: 'disabled'};
 }
 
 let upstream: Response;
+const upstreamAbort = new AbortController();
+let timedOut = false;
+// Leave time to report an interruption before this route's 60-second budget.
+const timeout = setTimeout(() => { timedOut = true; upstreamAbort.abort(); }, 55_000);
+const cancelUpstream = () => upstreamAbort.abort();
+req.signal.addEventListener('abort', cancelUpstream, { once: true });
+if (req.signal.aborted) cancelUpstream();
+const cleanup = () => {
+  clearTimeout(timeout);
+  req.signal.removeEventListener('abort', cancelUpstream);
+  upstreamAbort.abort();
+};
 try {
 upstream = await fetch(`${cfg.baseUrl}/chat/completions`, {
 method: 'POST',
@@ -167,64 +209,21 @@ headers: {
 Authorization: `Bearer ${cfg.apiKey}`,
 },
 body: JSON.stringify(upstreamBody),
+signal: upstreamAbort.signal,
 });
 } catch (e) {
+cleanup();
 console.error('[interpret] upstream fetch failed', e);
-return Response.json({ error: '无法连接模型接口'}, { status: 502});
+return Response.json({ error: timedOut ? '模型响应超时，请重试' : '无法连接模型接口'}, { status: timedOut ? 504 : 502});
 }
 if (!upstream.ok ||!upstream.body) {
 const detail = (await upstream.text().catch(() => '')).slice(0, 300);
+cleanup();
 console.error(`[interpret] upstream ${upstream.status}: ${detail}`);
 return Response.json({ error: `模型接口返回 ${upstream.status}`}, { status: 502});
 }
 
-// 把 OpenAI 兼容的流（choices[0].delta.content）转成前端要的 {"delta":{"text"}} 格式
-const encoder = new TextEncoder();
-const decoder = new TextDecoder();
-const reader = upstream.body.getReader();
-let buffer = '';
-
-let finished = false;
-const stream = new ReadableStream<Uint8Array>({
-async pull(controller) {
-if (finished) return;
-// 终局处理只做一次：发出 [DONE]、关闭下游流、并主动断开上游。
-// 关键点：一旦上游发出 [DONE] 就立即收尾，绝不等上游 socket 自己关闭——
-// 部分聚合网关发完 [DONE] 后会长时间不关连接，干等会让前端一直处于 loading 状态。
-const finish = () => {
-if (finished) return;
-finished = true;
-try { controller.enqueue(encoder.encode('data: [DONE]\n\n')); } catch { /* 流已关闭 */ }
-try { controller.close(); } catch { /* 流已关闭 */ }
-reader.cancel().catch(() => {});
-};
-try {
-const { done, value} = await reader.read();
-if (done) { finish(); return; }
-buffer += decoder.decode(value, { stream: true});
-const lines = buffer.split('\n');
-buffer = lines.pop()?? '';
-for (const line of lines) {
-const t = line.trim();
-if (!t.startsWith('data:')) continue;
-const data = t.slice(5).trim();
-if (!data) continue;
-if (data === '[DONE]') { finish(); return; }
-try {
-const json = JSON.parse(data);
-const text: string = json.choices?.[0]?.delta?.content?? '';
-if (text) {
-controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text}})}\n\n`));
-}
-} catch { /* 半行/心跳，跳过 */}
-}
-} catch (e) {
-console.error('[interpret] stream error', e);
-finish();
-}
-},
-cancel() { finished = true; reader.cancel().catch(() => {});},
-});
+const stream = createInterpretStream(upstream.body, cleanup);
 
 return new Response(stream, {
 headers: {

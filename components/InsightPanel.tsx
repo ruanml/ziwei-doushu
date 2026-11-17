@@ -38,7 +38,7 @@ const TOPIC_PROMPTS: Record<string, string> = {
 用一句话概括这个命盘的核心格局与命主气质。
 
 **【主星解读】**
-命宫主星的核心特质，引用倪海厦原话或观点。
+命宫主星的核心特质，说明具体命盘依据；没有可核查出处时不引用原话。
 
 **【三方四正】**
 财、官、迁三宫的联动分析及整体格局。
@@ -117,7 +117,7 @@ const TOPIC_PROMPTS: Record<string, string> = {
   personality: `请深度解析性格特质，按以下结构输出：
 
 **【命宫主星性格】**
-命宫主星的核心性格特质，引用倪师原话。
+命宫主星的核心性格特质，说明具体命盘依据；没有可核查出处时不引用原话。
 
 **【三方性格综合】**
 财、官、迁三宫对性格的影响，全貌描绘。
@@ -318,7 +318,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
       reader.cancel().catch(() => {});
     } catch (e) {
       const missing = e instanceof Error && e.message === 'api-missing';
-      setMessages(prev => [...prev, { role: 'assistant', content: missing ? '开源版不含 AI 解读接口（/api/interpret），需要你自己实现后才能用，详见 README「快速开始」。排盘本身不需要任何 API Key。' : '解读失败，请稍后重试。' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: missing ? '开源版不含 AI 解读接口（/api/interpret），需要你自己实现后才能用，详见 README「快速开始」。排盘本身不需要任何 API Key。' : '解读未完成，可能是连接中断或响应超时。已显示的内容可能不完整，请稍后重试。' }]);
     } finally {
       setLoading(false);
       loadingRef.current = false;
