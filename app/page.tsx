@@ -556,6 +556,10 @@ export default function HomePage() {
           {' · '}
           <a href="/heming" style={{ color: c.goldSolid, textDecoration: 'none' }}>双人合盘</a>
           {' · '}
+          <a href="/knowledge" style={{ color: c.footerText, textDecoration: 'none' }}>星曜知识库</a>
+          {' · '}
+          <a href="/library" style={{ color: c.footerText, textDecoration: 'none' }}>古籍原典</a>
+          {' · '}
           <a href="/terms" style={{ color: c.footerText, textDecoration: 'underline' }}>服务条款</a>
           {' · '}
           <a href="/privacy" style={{ color: c.footerText, textDecoration: 'underline' }}>隐私政策</a>
