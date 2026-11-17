@@ -30,11 +30,18 @@ export function getBookBySlug(slug: string): Book | null {
 
 /** 按章节序号取章节 */
 export function getChapter(bookSlug: string, chapterIdx: number) {
+  if (!Number.isSafeInteger(chapterIdx) || chapterIdx < 0) return null;
   const book = getBookBySlug(bookSlug);
   if (!book) return null;
   const chapter = book.chapters[chapterIdx];
   if (!chapter) return null;
   return { book, chapter, chapterIdx };
+}
+
+/** URL chapter IDs must use the same decimal spelling as sitemap and links. */
+export function getChapterByRoute(bookSlug: string, chapter: string) {
+  if (!/^(0|[1-9]\d*)$/.test(chapter)) return null;
+  return getChapter(bookSlug, Number(chapter));
 }
 
 /** 按段落 id 取段落（含书与章节信息）*/

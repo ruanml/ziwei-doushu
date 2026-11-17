@@ -7,11 +7,13 @@
 import Link from 'next/link';
 import { ALL_BOOKS, TOTAL_PARAGRAPHS } from '@/lib/classics';
 import LibrarySearch from './LibrarySearch';
+import { pageMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: '/library',
   title: '倪师方法论 · 古籍原典库 · 紫微斗数全集 / 全书 / 骨髓赋',
   description: '紫微斗数权威古籍全文检索：《紫微斗数全集》《紫微斗数全书》《骨髓赋》倪海厦《天纪》引证来源',
-};
+});
 
 export default function LibraryHomePage() {
   return (

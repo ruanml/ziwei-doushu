@@ -4,7 +4,10 @@
 
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ALL_BOOKS, getChapter } from '@/lib/classics';
+import { ALL_BOOKS, getChapterByRoute } from '@/lib/classics';
+import { pageMetadata } from '@/lib/seo/metadata';
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return ALL_BOOKS.flatMap(b =>
@@ -14,17 +17,19 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ book: string; chapter: string }> }) {
   const { book: bookSlug, chapter: chIdx } = await params;
-  const result = getChapter(bookSlug, parseInt(chIdx));
+  const result = getChapterByRoute(bookSlug, chIdx);
   if (!result) return {};
-  return {
+  return pageMetadata({
+    path: `/library/${result.book.slug}/${result.chapterIdx}`,
+    type: 'article',
     title: `${result.chapter.title} · 《${result.book.title}》· 紫微斗数古籍`,
     description: result.chapter.subtitle || `《${result.book.title}》${result.chapter.title}原文`,
-  };
+  });
 }
 
 export default async function ChapterPage({ params }: { params: Promise<{ book: string; chapter: string }> }) {
   const { book: bookSlug, chapter: chIdx } = await params;
-  const result = getChapter(bookSlug, parseInt(chIdx));
+  const result = getChapterByRoute(bookSlug, chIdx);
   if (!result) notFound();
 
   const { book, chapter, chapterIdx } = result;

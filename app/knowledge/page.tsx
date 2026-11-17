@@ -1,17 +1,18 @@
 /**
  * /knowledge — 知识库主页
- * 列出 14 主星，每星可看其在 13 宫位的解读
+ * 列出 14 主星的十二宫位与性格专题
  */
 
 import Link from 'next/link';
 import { ALL_STARS, ALL_TOPICS, getKnowledge, STAR_BRIEF_SEO, STAR_TO_SLUG } from '@/lib/seo/knowledge';
 import { TOPIC_LABEL } from '@/lib/ziwei/db-analysis';
+import { pageMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: '紫微斗数知识库 · 14 主星 × 13 宫位 · 倪海厦正宗体系',
-  description: '基于倪海厦《天纪》体系与古籍《紫微斗数全集》《骨髓赋》编纂的紫微斗数知识库。覆盖 14 主星在 13 个宫位的完整论断，含一句话定调、核心论断、命盘依据、经典出处。',
-  keywords: ['紫微斗数', '倪海厦', '倪海厦紫微斗数', '紫微斗数全集', '紫微斗数全书', '14 主星', '12 宫位'],
-};
+export const metadata = pageMetadata({
+  path: '/knowledge',
+  title: '紫微斗数知识库 · 十四主星与十二宫位解读',
+  description: '了解紫微斗数十四主星的十二宫位与性格专题，区分星性概述、组合条件和参考资料，结合完整命盘学习传统命理。',
+});
 
 export default function KnowledgeHomePage() {
   const STAR_DESCRIPTIONS_QUICK = STAR_BRIEF_SEO;
@@ -43,8 +44,8 @@ export default function KnowledgeHomePage() {
           紫微斗数知识库
         </h1>
         <p style={{ fontSize: '14px', color: 'var(--tx-2)', letterSpacing: '0.08em', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-          14 主星 × 13 宫位 = <strong style={{ color: 'var(--ac)' }}>{ALL_STARS.length * ALL_TOPICS.length}</strong> 项专题<br />
-          基于倪海厦《天纪》体系编纂 · 含古籍引证
+          14 主星 × 13 专题（十二宫位＋性格）= <strong style={{ color: 'var(--ac)' }}>{ALL_STARS.length * ALL_TOPICS.length}</strong> 项专题<br />
+          传统命理学习整理 · 附课程回看入口与适用范围
         </p>
       </div>
 
@@ -115,7 +116,7 @@ export default function KnowledgeHomePage() {
                         textDecoration: 'none',
                       }}
                     >
-                      入{k.palaceName} · {TOPIC_LABEL[t]}
+                      {t === 'personality' ? '性格特质' : `入${k.palaceName} · ${TOPIC_LABEL[t]}`}
                     </Link>
                   );
                 })}

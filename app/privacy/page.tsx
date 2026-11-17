@@ -1,4 +1,6 @@
-export const metadata = { title: '隐私政策 · 紫微命盘', description: '紫微命盘隐私政策' };
+import { pageMetadata } from '@/lib/seo/metadata';
+
+export const metadata = pageMetadata({ path: '/privacy', title: '隐私政策 · 紫微命盘', description: '紫微命盘隐私政策' });
 
 export default function PrivacyPage() {
   return (

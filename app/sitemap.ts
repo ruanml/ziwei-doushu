@@ -11,6 +11,7 @@ import type { MetadataRoute } from 'next';
 import { ALL_BOOKS } from '@/lib/classics';
 import { getAllKnowledgeRoutes } from '@/lib/seo/knowledge';
 import { SITE_URL } from '@/lib/site';
+import { KNOWLEDGE_UPDATED_AT } from '@/lib/seo/knowledge-sources';
 
 const BASE_URL = SITE_URL;
 
@@ -25,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/knowledge`, priority: 0.9, changeFrequency: 'weekly', lastModified: lastmod },
     { url: `${BASE_URL}/terms`, priority: 0.3, changeFrequency: 'monthly', lastModified: lastmod },
     { url: `${BASE_URL}/privacy`, priority: 0.3, changeFrequency: 'monthly', lastModified: lastmod },
+    { url: `${BASE_URL}/about`, priority: 0.3, changeFrequency: 'monthly', lastModified: lastmod },
   ];
 
   // 古籍页
@@ -49,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/knowledge/${slug}/${topic}`,
     priority: 0.7,
     changeFrequency: 'monthly',
-    lastModified: lastmod,
+    lastModified: new Date(KNOWLEDGE_UPDATED_AT),
   }));
 
   return [...staticPages, ...libraryPages, ...knowledgePages];

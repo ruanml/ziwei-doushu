@@ -7,6 +7,7 @@ import { searchClassics, getParagraphById } from '@/lib/classics';
 
 export const metadata = {
   title: '搜索 · 古籍原典库',
+  robots: { index: false, follow: true },
 };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {

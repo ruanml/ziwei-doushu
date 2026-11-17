@@ -2,13 +2,13 @@
  * /knowledge/[star]/[topic] — SEO 落地页
  *
  * 14 主星 × 13 topic = 182 个独立 URL
- * 每页含完整的 STAR_DB 4 段论断（一句话定调/核心论断/命盘依据/经典出处）
+ * 展示 STAR_DB 学习整理、适用范围与课程回看入口；未核实引文不展示。
  *
  * SEO 要点：
- *  - title 含主关键词（如"紫微入命宫·倪海厦体系详解"）
+ *  - title 区分宫位与性格专题
  *  - description 用 dingdiao（一句话定调）
  *  - JSON-LD Article 结构化数据
- *  - 内链：同主星其他 12 宫 + 同宫其他 13 主星
+ *  - 内链：同主星其他 12 专题 + 同专题其他 13 主星
  *  - generateStaticParams 静态生成，零运行时开销
  */
 
@@ -25,9 +25,11 @@ import {
   SLUG_TO_STAR,
 } from '@/lib/seo/knowledge';
 import { SITE_URL } from '@/lib/site';
+import { pageMetadata } from '@/lib/seo/metadata';
+import { KNOWLEDGE_UPDATED_AT, STAR_LECTURES } from '@/lib/seo/knowledge-sources';
+import { READING_GUIDE } from '@/lib/seo/reading-guide';
 
-// 允许动态参数：如果某个 star/topic 组合不在 generateStaticParams 列表中
-// 也允许运行时按需渲染，避免中文 URL 编码问题导致 404
+// Only publish the star/topic pairs backed by actual content.
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -43,22 +45,12 @@ export async function generateMetadata({ params }: { params: Promise<{ star: str
   const data = getKnowledge(star, topic as TopicKey);
   if (!data.exists) return {};
 
-  const title = `${star}入${data.palaceName}宫 · ${data.topicLabel} · 倪海厦体系详解`;
+  const title = `${data.heading} · ${data.topicLabel} · 紫微命盘`;
   const description = data.parsed.dingdiao
-    || `${star}入${data.palaceName}宫的紫微斗数解读 — 基于倪海厦《天纪》体系与古籍《紫微斗数全集》《骨髓赋》。`;
+    || `${data.heading}的传统命理学习笔记，说明适用条件与参考资料。`;
 
   return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-      url: `${SITE_URL}/knowledge/${slug}/${topic}`,
-    },
-    alternates: {
-      canonical: `${SITE_URL}/knowledge/${slug}/${topic}`,
-    },
+    ...pageMetadata({ title, description, type: 'article', path: `/knowledge/${slug}/${topic}` }),
     keywords: [
       '紫微斗数', '倪海厦', star, data.palaceName, data.topicLabel,
       `${star}${data.palaceName}`, `${star}入${data.palaceName}`,
@@ -73,6 +65,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
   if (!star) notFound();
   const data = getKnowledge(star, topic as TopicKey);
   if (!data.exists) notFound();
+  const lecture = STAR_LECTURES[star];
 
   // 同主星其他 topic
   const otherTopicsForStar = ALL_TOPICS.filter(t => t !== topic && getKnowledge(star, t).exists);
@@ -83,16 +76,15 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: `${star}入${data.palaceName}宫 · ${data.topicLabel}`,
+    headline: data.heading,
     description: data.parsed.dingdiao,
-    author: { '@type': 'Organization', name: '紫微研究 · 倪海厦正宗' },
+    author: { '@type': 'Organization', name: '紫微命盘', url: `${SITE_URL}/about` },
     publisher: {
       '@type': 'Organization',
-      name: '紫微研究',
+      name: '紫微命盘',
       url: SITE_URL,
     },
-    datePublished: '2026-04-28',
-    dateModified: '2026-04-28',
+    dateModified: KNOWLEDGE_UPDATED_AT,
     mainEntityOfPage: `${SITE_URL}/knowledge/${slug}/${topic}`,
     articleSection: '紫微斗数 · 倪海厦体系',
     keywords: [`紫微斗数`, star, data.palaceName, data.topicLabel].join(', '),
@@ -125,7 +117,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           <span style={{ margin: '0 8px' }}>/</span>
           <span>{star}</span>
           <span style={{ margin: '0 8px' }}>·</span>
-          <span style={{ color: 'var(--ac)' }}>{data.palaceName}宫</span>
+          <span style={{ color: 'var(--ac)' }}>{data.topicLabel}</span>
         </nav>
 
         {/* 标题区 */}
@@ -134,16 +126,24 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
             {data.topicLabel} · 倪海厦体系详解
           </div>
           <h1 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 700, color: 'var(--tx-0)', letterSpacing: '0.1em', lineHeight: 1.2 }}>
-            {star}入{data.palaceName}宫
+            {data.heading}
           </h1>
           {STAR_BRIEF_SEO[star] && (
             <p style={{ fontSize: '13px', color: 'var(--tx-2)', marginTop: '14px', lineHeight: 1.8 }}>
               {STAR_BRIEF_SEO[star]}
             </p>
           )}
+          <p className="text-xs mt-4" style={{ color: 'var(--tx-2)' }}>
+            <Link href="/about">整理：紫微命盘 · 内容方法</Link>
+            {' · 更新：'}<time dateTime={KNOWLEDGE_UPDATED_AT}>{KNOWLEDGE_UPDATED_AT}</time>
+          </p>
         </header>
 
-        {/* 内容 4 段 */}
+        <Section title="阅读范围" minimal>
+          <p className="text-sm leading-loose">以下为传统命理学习整理，不是个人命盘结论，也不是倪师逐字原话。单颗星的概述需要结合完整组合阅读。</p>
+        </Section>
+
+        {/* 学习整理 */}
         {data.parsed.dingdiao && (
           <Section title="一句话定调" gradient>
             <p style={{ fontSize: '17px', color: 'var(--tx-0)', lineHeight: 1.9, fontWeight: 500, letterSpacing: '0.04em' }}>
@@ -168,13 +168,19 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           </Section>
         )}
 
-        {data.parsed.chuchu && (
-          <Section title="经典出处" minimal>
-            <div style={{ fontSize: '13px', color: 'var(--tx-2)', lineHeight: 2, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>
-              {data.parsed.chuchu}
-            </div>
-          </Section>
-        )}
+        <Section title="适用条件与核对方法">
+          <p className="text-sm leading-loose">{READING_GUIDE[topic as TopicKey]}</p>
+        </Section>
+
+        <Section title="参考资料与回看入口" minimal>
+          <p className="text-sm leading-loose">
+            <a href={lecture.url} className="underline">《天纪》{star}星讲解 · {lecture.subject} · 视频 P{lecture.part} {lecture.time}</a>
+          </p>
+          <p className="text-xs leading-loose mt-2" style={{ color: 'var(--tx-2)' }}>
+            此入口用于核对{star}星的基础讲解，不是本文所有宫位结论的逐条引证。
+            具体断语仍需核对课程上下文与成立条件。<Link href="/about" className="underline">查看内容整理方法</Link>。
+          </p>
+        </Section>
 
         {/* CTA */}
         <div style={{
@@ -208,7 +214,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         </div>
 
         {/* 内链：同主星其他 topic */}
-        <Section title={`${star}星的其他宫位解读`} minimal>
+        <Section title={`${star}星的其他专题`} minimal>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {otherTopicsForStar.map(t => {
               const d = getKnowledge(star, t);
@@ -226,7 +232,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
                     textDecoration: 'none',
                   }}
                 >
-                  {star}入{d.palaceName}
+                  {d.heading}
                 </Link>
               );
             })}
@@ -234,7 +240,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         </Section>
 
         {/* 内链：同 topic 其他主星 */}
-        <Section title={`其他主星入${data.palaceName}宫的解读`} minimal>
+        <Section title={`其他主星的${data.topicLabel}解读`} minimal>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {otherStarsForTopic.slice(0, 13).map(s => (
               <Link
@@ -250,7 +256,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
                   textDecoration: 'none',
                 }}
               >
-                {s}入{data.palaceName}
+                {getKnowledge(s, topic as TopicKey).heading}
               </Link>
             ))}
           </div>

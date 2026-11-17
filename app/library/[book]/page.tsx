@@ -5,6 +5,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ALL_BOOKS, getBookBySlug } from '@/lib/classics';
+import { pageMetadata } from '@/lib/seo/metadata';
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return ALL_BOOKS.map(b => ({ book: b.slug }));
@@ -14,10 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ book: str
   const { book: slug } = await params;
   const book = getBookBySlug(slug);
   if (!book) return {};
-  return {
+  return pageMetadata({
+    path: `/library/${book.slug}`,
     title: `《${book.title}》· ${book.dynasty} · 紫微斗数古籍原典库`,
     description: book.intro,
-  };
+  });
 }
 
 export default async function BookPage({ params }: { params: Promise<{ book: string }> }) {

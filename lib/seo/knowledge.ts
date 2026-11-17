@@ -113,6 +113,7 @@ export interface KnowledgeData {
   topic: TopicKey;
   topicLabel: string;
   palaceName: string;
+  heading: string;
   parsed: ParsedContent;
   exists: boolean;
 }
@@ -121,11 +122,14 @@ export function getKnowledge(star: string, topic: TopicKey): KnowledgeData {
   const profile = STAR_DB[star] as StarContent | undefined;
   const field = TOPIC_TO_FIELD[topic];
   const content = profile && field ? (profile[field] as string | undefined) ?? '' : '';
+  const palaceName = TOPIC_PALACE_NAME[topic];
+  const fullPalaceName = palaceName?.endsWith('宫') ? palaceName : `${palaceName}宫`;
   return {
     star,
     topic,
     topicLabel: TOPIC_LABEL[topic],
-    palaceName: TOPIC_PALACE_NAME[topic],
+    palaceName: fullPalaceName,
+    heading: topic === 'personality' ? `${star}星坐命的性格特点` : `${star}星入${fullPalaceName}`,
     parsed: parseStarContent(content),
     exists: Boolean(content),
   };
