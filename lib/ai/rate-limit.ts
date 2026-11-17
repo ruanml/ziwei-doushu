@@ -164,17 +164,20 @@ return {0, 0}
 `;
 
 function getRedisClient(): Redis | null {
-  const url = process.env.REDIS_URL?.trim();
+  const url = (process.env.REDIS_URL || process.env.KV_URL)?.trim();
   if (!url) return null;
-  if (globalForRateLimit.__ziweiRedisClient && globalForRateLimit.__ziweiRedisUrl === url) {
-    return globalForRateLimit.__ziweiRedisClient;
+  const existing = globalForRateLimit.__ziweiRedisClient;
+  if (existing && globalForRateLimit.__ziweiRedisUrl === url && existing.status !== 'end' && existing.status !== 'close') {
+    return existing;
+  }
+  if (existing) {
+    try { existing.disconnect(); } catch { /* ignore */ }
   }
   try {
     const client = new Redis(url, {
       maxRetriesPerRequest: 1,
-      connectTimeout: 2000,
-      commandTimeout: 2000,
-      enableOfflineQueue: false,
+      connectTimeout: 4000,
+      commandTimeout: 4000,
       lazyConnect: true,
     });
     client.on('error', () => { /* 静默处理，调用处回退内存限流 */ });
