@@ -20,6 +20,7 @@ import type { ZiweiChart, Palace} from '@/lib/ziwei/types';
 import { BRANCHES, STEMS} from '@/lib/ziwei/constants';
 import { detectPatterns} from '@/lib/ziwei/patterns';
 import { createInterpretStream } from '@/lib/ai/interpret-stream';
+import { checkAiRateLimit } from '@/lib/ai/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -172,6 +173,17 @@ return Response.json({ error: '请求体不合法，需要 { chart, messages}'},
 }
 if (!messages.length || messages[messages.length - 1].role!== 'user') {
 messages = [...messages, { role: 'user', content: '请总览这张命盘：命格定调、性格、事业、财运、感情、健康逐项解读，并给出建议。'}];
+}
+
+const rl = await checkAiRateLimit(req);
+if (!rl.allowed) {
+return Response.json(
+  { error: rl.error ?? '请求过于频繁，请稍后再试' },
+  {
+    status: 429,
+    headers: rl.retryAfterSeconds ? { 'Retry-After': String(rl.retryAfterSeconds) } : undefined,
+  },
+);
 }
 
 const upstreamBody: Record<string, unknown> = {

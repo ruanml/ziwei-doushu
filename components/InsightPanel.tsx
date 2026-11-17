@@ -282,6 +282,10 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
         body: JSON.stringify({ chart, messages: apiMessages }),
       });
       if (res.status === 404) throw new Error('api-missing');
+      if (res.status === 429) {
+        const errBody = await res.json().catch(() => ({}));
+        throw new Error(`rate-limit:${errBody?.error || '请求过于频繁，请稍后再试。'}`);
+      }
       if (!res.ok) throw new Error('请求失败');
       if (!res.body) throw new Error('无响应流');
 
@@ -317,8 +321,10 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
       }
       reader.cancel().catch(() => {});
     } catch (e) {
-      const missing = e instanceof Error && e.message === 'api-missing';
-      setMessages(prev => [...prev, { role: 'assistant', content: missing ? '开源版不含 AI 解读接口（/api/interpret），需要你自己实现后才能用，详见 README「快速开始」。排盘本身不需要任何 API Key。' : '解读未完成，可能是连接中断或响应超时。已显示的内容可能不完整，请稍后重试。' }]);
+      const msg = e instanceof Error ? e.message : '';
+      const missing = msg === 'api-missing';
+      const rateLimit = msg.startsWith('rate-limit:') ? msg.slice('rate-limit:'.length) : '';
+      setMessages(prev => [...prev, { role: 'assistant', content: missing ? '开源版不含 AI 解读接口（/api/interpret），需要你自己实现后才能用，详见 README「快速开始」。排盘本身不需要任何 API Key。' : (rateLimit || '解读未完成，可能是连接中断或响应超时。已显示的内容可能不完整，请稍后重试。') }]);
     } finally {
       setLoading(false);
       loadingRef.current = false;

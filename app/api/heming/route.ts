@@ -14,6 +14,7 @@ import { BRANCHES, STEMS } from '@/lib/ziwei/constants';
 import { detectPatterns } from '@/lib/ziwei/patterns';
 import { getSiHuaByStem } from '@/lib/ziwei/sihua';
 import { createInterpretStream } from '@/lib/ai/interpret-stream';
+import { checkAiRateLimit } from '@/lib/ai/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -266,6 +267,17 @@ export async function POST(req: Request) {
     userPrompt = buildUserPrompt(body?.question);
   } catch {
     return Response.json({ error: '请求体不合法，需要有效的 { chartA, chartB }' }, { status: 400 });
+  }
+
+  const rl = await checkAiRateLimit(req);
+  if (!rl.allowed) {
+    return Response.json(
+      { error: rl.error ?? '请求过于频繁，请稍后再试' },
+      {
+        status: 429,
+        headers: rl.retryAfterSeconds ? { 'Retry-After': String(rl.retryAfterSeconds) } : undefined,
+      },
+    );
   }
 
   const upstreamBody: Record<string, unknown> = {
