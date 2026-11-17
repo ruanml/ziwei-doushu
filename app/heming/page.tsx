@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import BirthForm, { type BirthFormState } from '@/components/BirthForm';
 import { formToBirthInfo } from '@/lib/ziwei/share';
@@ -49,7 +49,7 @@ function AiContent({ text, streaming }: { text: string; streaming?: boolean }) {
 
 export default function HemingPage() {
   const router = useRouter();
-  const { theme } = useTheme();
+  const { theme, toggle } = useTheme();
   const isDark = theme === 'dark';
 
   // ─── 双方命盘状态 ─────────────────────────────────────────
@@ -151,14 +151,67 @@ export default function HemingPage() {
   }, [formA, formB, generateChart]);
 
   const cardStyle = {
-    background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.9)',
-    border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(200,160,60,0.2)'}`,
+    background: 'var(--bg-card)',
+    border: '1px solid var(--bdr-med)',
     borderRadius: '16px',
     padding: '24px',
+    boxShadow: 'var(--sh-sm)',
+  };
+
+  // 防止合盘分析过程中或完成后误触返回/刷新丢失
+  const bypassUnloadRef = useRef(false);
+  useEffect(() => {
+    if (!analysis && !analyzing) return;
+    bypassUnloadRef.current = false;
+    try { window.history.pushState({ ziweiHemingActive: true }, ''); } catch { /* ignore */ }
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (bypassUnloadRef.current) return;
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    const onPopState = () => {
+      const ok = window.confirm('当前合盘分析正在查看中，确定要返回上一页吗？');
+      if (ok) {
+        bypassUnloadRef.current = true;
+        router.back();
+      } else {
+        try { window.history.pushState({ ziweiHemingActive: true }, ''); } catch { /* ignore */ }
+      }
+    };
+    window.addEventListener('beforeunload', onBeforeUnload);
+    window.addEventListener('popstate', onPopState);
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload);
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, [Boolean(analysis || analyzing), router]);
+
+  const confirmLeaveHeming = (): boolean => {
+    if (!analysis && !analyzing) return true;
+    const ok = window.confirm('当前合盘分析正在查看中，确定要离开当前页面吗？');
+    if (ok) bypassUnloadRef.current = true;
+    return ok;
+  };
+
+  const handleExportHeming = () => {
+    if (!analysis) return;
+    const nameA = chartA?.birthInfo.name || formA?.name || '甲方';
+    const nameB = chartB?.birthInfo.name || formB?.name || '乙方';
+    const md = `# 紫微斗数双人合盘报告（${nameA} & ${nameB}）\n\n${analysis}\n`;
+    const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `紫微合盘_${nameA}_${nameB}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const labelStyle = {
-    fontSize: '10px', letterSpacing: '0.4em', color: 'var(--ac)', opacity: 0.7,
+    fontFamily: 'var(--font-serif)',
+    fontSize: '12px', letterSpacing: '0.28em', color: 'var(--ac)', fontWeight: 600,
     marginBottom: '16px', display: 'block',
   };
 
@@ -167,38 +220,76 @@ export default function HemingPage() {
       {/* 顶栏 */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: isDark ? 'rgba(2,8,16,0.88)' : 'rgba(250,245,235,0.92)',
-        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid var(--bdr)',
-        display: 'flex', alignItems: 'center', padding: '0 24px', height: '52px', gap: '16px',
+        background: 'color-mix(in srgb, var(--bg-0) 90%, transparent)',
+        backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
+        borderBottom: '1px solid var(--bdr-med)',
+        display: 'flex', alignItems: 'center', padding: '0 24px', height: '52px', gap: '14px',
       }}>
         <button
-          onClick={() => router.push('/')}
+          onClick={() => { if (confirmLeaveHeming()) router.push('/'); }}
           style={{
             display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px',
-            color: 'var(--tx-3)', background: 'none', border: 'none', cursor: 'pointer',
+            color: 'var(--tx-2)', background: 'none', border: 'none', cursor: 'pointer',
           }}
         >
-          <span style={{ fontSize: '16px' }}>‹</span>
-          <span>返回</span>
+          <span>‹</span>
+          <span>首页</span>
         </button>
-        <div style={{ width: '1px', height: '20px', background: 'var(--bdr-med)' }} />
-        <span style={{ fontSize: '12px', color: 'var(--ac)', letterSpacing: '0.2em' }}>合盘分析</span>
+        <div style={{ width: '1px', height: '16px', background: 'var(--bdr-med)' }} />
+        <span style={{ fontFamily: 'var(--font-serif)', fontSize: '14px', fontWeight: 600, color: 'var(--ac)', letterSpacing: '0.18em' }}>
+          ✦ 双人合盘
+        </span>
         <div style={{ flex: 1 }} />
-        <span style={{ fontSize: '11px', color: 'var(--tx-3)' }}>感情 · 合伙 · 亲子 · 朋友</span>
+        {analysis && (
+          <button
+            type="button"
+            onClick={handleExportHeming}
+            style={{
+              padding: '5px 12px', borderRadius: 'var(--r-pill)',
+              border: '1px solid var(--ac-bdr)', background: 'var(--ac-bg)',
+              color: 'var(--ac)', fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+            }}
+          >
+            ⬇ 保存合盘报告
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={toggle}
+          style={{
+            padding: '5px 12px', borderRadius: 'var(--r-pill)',
+            border: '1px solid var(--bdr-med)', background: 'var(--bg-card)',
+            color: 'var(--ac)', fontSize: '12px', cursor: 'pointer',
+          }}
+        >
+          {isDark ? '☾ 暗色' : '☀ 亮色'}
+        </button>
+        <button
+          type="button"
+          onClick={() => { if (confirmLeaveHeming()) router.push('/chart'); }}
+          style={{
+            padding: '5px 14px', borderRadius: 'var(--r-pill)',
+            border: '1px solid var(--ac-bdr)', background: 'var(--ac-bg)',
+            color: 'var(--ac)', fontSize: '12px', cursor: 'pointer',
+          }}
+        >
+          单人排盘 →
+        </button>
       </header>
 
       {/* 主体 */}
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '32px 24px 80px' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', padding: '36px 24px 80px' }}>
 
         {/* 标题 */}
-        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-          <div style={{ fontSize: '28px', color: 'var(--ac)', opacity: 0.15, marginBottom: '12px' }}>☯</div>
-          <h1 style={{ fontSize: '22px', fontWeight: 600, letterSpacing: '0.15em', color: 'var(--tx-0)', marginBottom: '8px' }}>
-            紫微合盘
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div style={{ fontSize: '11px', letterSpacing: '0.38em', color: 'var(--ac)', opacity: 0.8, marginBottom: '8px' }}>
+            ✦ 命宫 · 夫妻宫 · 福德宫三宫联参 ✦
+          </div>
+          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '28px', fontWeight: 600, letterSpacing: '0.16em', color: 'var(--ac)', marginBottom: '8px' }}>
+            紫微双人合盘
           </h1>
-          <p style={{ fontSize: '13px', color: 'var(--tx-3)', lineHeight: 1.6 }}>
-            输入两个人的出生信息，AI 基于倪海厦体系分析双方命盘的缘分匹配度、感情走向与相处建议
+          <p style={{ fontSize: '13px', color: 'var(--tx-2)', lineHeight: 1.7 }}>
+            输入两个人的出生年月日时，AI 基于倪海厦《天纪》体系分析双方命盘的缘分匹配度、飞化互参与相处之道
           </p>
         </div>
 
@@ -207,7 +298,7 @@ export default function HemingPage() {
           className="heming-grid">
           {/* 甲方 */}
           <div style={cardStyle}>
-            <span style={labelStyle}>甲方 — A</span>
+            <span style={labelStyle}>✦ 甲方命造 — A</span>
             <BirthForm
               hideSubmit
               onSubmit={() => {}}
@@ -217,7 +308,7 @@ export default function HemingPage() {
 
           {/* 乙方 */}
           <div style={cardStyle}>
-            <span style={labelStyle}>乙方 — B</span>
+            <span style={labelStyle}>✦ 乙方命造 — B</span>
             <BirthForm
               hideSubmit
               onSubmit={() => {}}
@@ -229,7 +320,7 @@ export default function HemingPage() {
         {/* ═══ 大合盘分析框（视觉中心，始终显示）════════════════ */}
         <div ref={analysisRef} style={{
           ...cardStyle,
-          minHeight: '320px',
+          minHeight: '300px',
           padding: '32px',
           display: 'flex',
           flexDirection: 'column',
@@ -237,29 +328,30 @@ export default function HemingPage() {
         }}>
           {/* 区块标题 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: (analysis || analyzing) ? '20px' : '24px' }}>
-            <span style={{ color: 'var(--ac)', opacity: 0.6 }}>◉</span>
-            <span style={{ fontSize: '11px', letterSpacing: '0.3em', color: 'var(--tx-3)' }}>合盘分析 · HEMING</span>
+            <span style={{ color: 'var(--ac)', opacity: 0.75 }}>◉</span>
+            <span style={{ fontFamily: 'var(--font-serif)', fontSize: '13px', fontWeight: 600, letterSpacing: '0.24em', color: 'var(--ac)' }}>
+              合盘参断
+            </span>
           </div>
 
           {/* 状态分支 */}
           {!analysis && !analyzing && (
-            <div style={{ textAlign: 'center', padding: '32px 0' }}>
-              <div style={{ fontSize: '13px', color: 'var(--tx-3)', marginBottom: '24px', lineHeight: 1.7 }}>
-                填好双方出生信息后，点击下方按钮<br />
-                AI 将基于倪海厦体系深度分析两人缘分匹配度
+            <div style={{ textAlign: 'center', padding: '28px 0' }}>
+              <div style={{ fontSize: '13px', color: 'var(--tx-2)', marginBottom: '24px', lineHeight: 1.75 }}>
+                填妥双方生辰信息后，点击下方按钮<br />
+                AI 将依倪海厦《天纪》体系深度推演双方缘分与相处建议
               </div>
               <button
                 onClick={() => runAnalysis()}
                 style={{
-                  padding: '14px 40px', borderRadius: 'var(--r-pill)', border: 'none',
-                  background: 'linear-gradient(135deg, #9a6210, #c88020)',
-                  color: '#fff8e8', fontSize: '14px', fontWeight: 600,
-                  letterSpacing: '0.15em', cursor: 'pointer',
-                  boxShadow: '0 4px 16px rgba(140,100,20,0.25)',
-                  transition: 'transform 0.15s',
+                  padding: '13px 40px', borderRadius: 'var(--r-pill)', border: 'none',
+                  background: isDark
+                    ? 'linear-gradient(135deg,#b8892a,#f0d070,#b8892a)'
+                    : 'linear-gradient(135deg,#6a4206,#9a6810,#6a4206)',
+                  color: isDark ? '#08080a' : '#f8f3e8', fontSize: '14px', fontWeight: 600,
+                  letterSpacing: '0.18em', cursor: 'pointer',
+                  boxShadow: '0 4px 18px rgba(140,100,20,0.25)',
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
               >
                 开始合盘分析
               </button>

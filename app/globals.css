@@ -5,28 +5,42 @@
 /* ─── 2.0 设计系统 Token ─────────────────────────────────── */
 :root {
   /* 字体 */
-  --font: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  --font: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-serif: 'Songti SC', 'STSong', 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', Georgia, serif;
   --font-mono: 'SF Mono', 'Menlo', 'Noto Sans Mono', 'Consolas', monospace;
 
-  /* 背景层级 */
-  --bg-0: #FAFAF9;
-  --bg-1: #F4F3EF;
-  --bg-2: #ECEAE4;
-  --bg-inv: #0D0D0B;
+  /* 背景层级（参考 ziwei.muryu.com 浅色暖金宣纸风格） */
+  --bg-0: #f5efe0;
+  --bg-1: #ede4cf;
+  --bg-2: #e3d7bc;
+  --bg-inv: #1a150c;
 
   /* 文字层级 */
-  --tx-0: #0D0D0B;
-  --tx-1: #1A1A18;
-  --tx-2: #4A4A45;
-  --tx-3: #8A8A82;
-  --tx-inv: #F0EDE8;
-  --tx-inv2: rgba(240,237,232,0.65);
+  --tx-0: #1a1d24;
+  --tx-1: #2c2820;
+  --tx-2: #4a4336;
+  --tx-3: #7d7058;
+  --tx-inv: #f5efe0;
+  --tx-inv2: rgba(245,239,224,0.7);
 
-  /* 唯一强调色：墨金 */
-  --ac:     #B8922A;
-  --ac-dim: #7A5F1A;
-  --ac-bg:  rgba(184,146,42,0.07);
-  --ac-bdr: rgba(184,146,42,0.22);
+  /* 唯一强调色：流金 / 古铜金 */
+  --ac:     #8b6410;
+  --ac-dim: #6a4206;
+  --ac-bg:  rgba(160,120,30,0.10);
+  --ac-bdr: rgba(160,120,30,0.32);
+  --seal:   #a63429;
+
+  /* 命盘组件主题变量（--t-*） */
+  --t-bg:         rgba(255,253,247,0.92);
+  --t-surface:    rgba(237,228,207,0.85);
+  --t-card:       rgba(255,252,244,0.88);
+  --t-border:     rgba(160,120,30,0.22);
+  --t-border-acc: rgba(140,100,20,0.38);
+  --t-gold:       #8b6410;
+  --t-text:       #1a1d24;
+  --t-text1:      #2c2820;
+  --t-text2:      #4a4336;
+  --t-faint:      #7d7058;
 
   /* 四化语义色（仅用于命盘数据，不用于UI装饰） */
   --lu:   #2D7A4A;
@@ -35,19 +49,19 @@
   --ji:   #A83228;
 
   /* 边框 */
-  --bdr:      rgba(0,0,0,0.07);
-  --bdr-med:  rgba(0,0,0,0.11);
-  --bdr-heavy:rgba(0,0,0,0.18);
+  --bdr:      rgba(160,120,30,0.18);
+  --bdr-med:  rgba(160,120,30,0.28);
+  --bdr-heavy:rgba(140,100,20,0.40);
 
   /* 阴影 */
-  --sh-xs: 0 1px 2px rgba(0,0,0,0.05);
-  --sh-sm: 0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-  --sh-md: 0 4px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
-  --sh-lg: 0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  --sh-xs: 0 1px 3px rgba(140,100,20,0.07);
+  --sh-sm: 0 4px 20px rgba(140,100,20,0.10), 0 1px 3px rgba(140,100,20,0.06);
+  --sh-md: 0 6px 28px rgba(140,100,20,0.13), 0 2px 6px rgba(140,100,20,0.07);
+  --sh-lg: 0 12px 40px rgba(140,100,20,0.16), 0 4px 12px rgba(140,100,20,0.08);
 
   /* 卡片/内容块背景 */
-  --bg-card: #FFFFFF;
-  --bg-page: #fbf6e8;
+  --bg-card: rgba(255,253,247,0.88);
+  --bg-page: #f5efe0;
 
   /* 圆角 */
   --r-xs:  4px;
@@ -67,23 +81,34 @@
 
   --tx-0: #e8eef6;
   --tx-1: #dce4f0;
-  --tx-2: #9db0d0;
-  --tx-3: #6a7a96;
-  --tx-inv: #0d0d0b;
-  --tx-inv2: rgba(13,13,11,0.65);
+  --tx-2: #b8c6df;
+  --tx-3: #8a9bb8;
+  --tx-inv: #020810;
+  --tx-inv2: rgba(2,8,16,0.65);
 
   --ac:     #d4a843;
   --ac-dim: #e8c060;
   --ac-bg:  rgba(212,168,67,0.10);
-  --ac-bdr: rgba(212,168,67,0.25);
+  --ac-bdr: rgba(212,168,67,0.28);
 
-  --bdr:      rgba(255,255,255,0.07);
-  --bdr-med:  rgba(255,255,255,0.12);
-  --bdr-heavy:rgba(255,255,255,0.20);
+  --t-bg:         #091120;
+  --t-surface:    #0f192c;
+  --t-card:       rgba(255,255,255,0.04);
+  --t-border:     rgba(212,168,67,0.18);
+  --t-border-acc: rgba(212,168,67,0.35);
+  --t-gold:       #d4a843;
+  --t-text:       #e8eef6;
+  --t-text1:      #dce4f0;
+  --t-text2:      #b8c6df;
+  --t-faint:      rgba(212,185,120,0.62);
 
-  --sh-xs: 0 1px 2px rgba(0,0,0,0.3);
-  --sh-sm: 0 2px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3);
-  --sh-md: 0 4px 20px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.35);
+  --bdr:      rgba(212,168,67,0.14);
+  --bdr-med:  rgba(212,168,67,0.24);
+  --bdr-heavy:rgba(212,168,67,0.38);
+
+  --sh-xs: 0 1px 2px rgba(0,0,0,0.35);
+  --sh-sm: 0 4px 24px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.3);
+  --sh-md: 0 6px 28px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.35);
   --sh-lg: 0 12px 40px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
 
   --bg-card: rgba(255,255,255,0.04);
@@ -146,6 +171,19 @@ body {
   background: var(--bg-1);
   border: 1px solid var(--bdr);
   border-radius: var(--r-md);
+}
+.card-glass {
+  background: var(--t-bg);
+  border: 1px solid var(--t-border);
+  box-shadow: var(--sh-sm);
+}
+
+/* 浅色模式下提高命盘宫格主星色对比度 */
+:root:not([data-theme="dark"]) .text-amber-300 {
+  color: #9A6508 !important;
+}
+:root:not([data-theme="dark"]) .text-amber-500 {
+  color: #B47814 !important;
 }
 
 /* 深色区块 */

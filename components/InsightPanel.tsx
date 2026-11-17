@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { ZiweiChart, Palace } from '@/lib/ziwei/types';
 import type { TimeView } from './TimeNav';
 
-interface Message {
+export interface Message {
   role: 'user' | 'assistant';
   content: string;
   hidden?: boolean; // don't show user bubble for auto/topic messages
@@ -20,6 +20,8 @@ interface InsightPanelProps {
   chart: ZiweiChart;
   selectedPalace?: Palace | null;
   selectedSiHua?: SelectedSiHua | null;
+  initialMessages?: Message[];
+  onMessagesChange?: (messages: Message[]) => void;
 }
 
 const TOPICS = [
@@ -144,26 +146,49 @@ const PALACE_ROLES: Record<string, string> = {
   '父母宫': '父母关系、文书契约',
 };
 
+type FontSizeKey = 'sm' | 'md' | 'lg';
+
+const FONT_SIZE_CONFIG: Record<FontSizeKey, { label: string; bodyPx: number; titlePx: number; bubblePx: number }> = {
+  sm: { label: '小', bodyPx: 12,   titlePx: 12.5, bubblePx: 12 },
+  md: { label: '中', bodyPx: 14,   titlePx: 14.5, bubblePx: 13.5 },
+  lg: { label: '大', bodyPx: 16,   titlePx: 16.5, bubblePx: 15 },
+};
+
 /** Render AI markdown: **【Title】** → gold header, **bold** → strong */
-function AiContent({ text, streaming }: { text: string; streaming?: boolean }) {
+function AiContent({
+  text,
+  streaming,
+  fontSize = 'md',
+}: {
+  text: string;
+  streaming?: boolean;
+  fontSize?: FontSizeKey;
+}) {
   const lines = text.split('\n');
+  const sz = FONT_SIZE_CONFIG[fontSize] ?? FONT_SIZE_CONFIG.md;
   return (
-    <div className="space-y-0.5">
+    <div className="space-y-1">
       {lines.map((line, i) => {
         const sectionMatch = line.match(/^\*\*【(.+?)】\*\*$/);
         if (sectionMatch) {
           return (
-            <div key={i} className="pt-3 pb-0.5 first:pt-0">
-              <span className="text-[11px] font-semibold tracking-wide" style={{ color: 'var(--t-gold)' }}>
+            <div key={i} className="pt-3.5 pb-1 first:pt-0">
+              <span
+                className="font-semibold tracking-wide"
+                style={{ color: 'var(--t-gold)', fontSize: `${sz.titlePx}px` }}
+              >
                 【{sectionMatch[1]}】
               </span>
             </div>
           );
         }
-        if (line.trim() === '') return <div key={i} className="h-1" />;
+        if (line.trim() === '') return <div key={i} className="h-1.5" />;
         const parts = line.split(/\*\*(.+?)\*\*/);
         return (
-          <div key={i} className="text-[11px] leading-relaxed" style={{ color: 'var(--t-text2)' }}>
+          <div
+            key={i}
+            style={{ color: 'var(--t-text2)', fontSize: `${sz.bodyPx}px`, lineHeight: 1.75 }}
+          >
             {parts.map((part, j) =>
               j % 2 === 0
                 ? part
@@ -174,7 +199,7 @@ function AiContent({ text, streaming }: { text: string; streaming?: boolean }) {
       })}
       {streaming && (
         <span
-          className="inline-block w-1.5 h-3 ml-0.5 animate-pulse rounded-sm align-middle"
+          className="inline-block w-1.5 h-3.5 ml-0.5 animate-pulse rounded-sm align-middle"
           style={{ background: 'var(--t-gold)', opacity: 0.6 }}
         />
       )}
@@ -182,20 +207,45 @@ function AiContent({ text, streaming }: { text: string; streaming?: boolean }) {
   );
 }
 
-export default function InsightPanel({ chart, selectedPalace, selectedSiHua }: InsightPanelProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
+export default function InsightPanel({
+  chart,
+  selectedPalace,
+  selectedSiHua,
+  initialMessages,
+  onMessagesChange,
+}: InsightPanelProps) {
+  const [messages, setMessages] = useState<Message[]>(() => initialMessages ?? []);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [activeTopic, setActiveTopic] = useState<string>('overview');
-  const messagesRef = useRef<Message[]>([]); // always-current copy for closures
+  const [fontSize, setFontSize] = useState<FontSizeKey>('md');
+  const messagesRef = useRef<Message[]>(initialMessages ?? []); // always-current copy for closures
   const loadingRef = useRef(false);
-  const autoLoaded = useRef(false);
+  const autoLoaded = useRef(Boolean(initialMessages && initialMessages.length > 0));
   const lastPalaceBranch = useRef<number | undefined>(undefined);
   const lastSiHuaKey = useRef<string | undefined>(undefined);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Keep refs in sync
-  useEffect(() => { messagesRef.current = messages; }, [messages]);
+  // Restore saved font size preference
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('ziwei-insight-fontsize') as FontSizeKey | null;
+      if (saved === 'sm' || saved === 'md' || saved === 'lg') setFontSize(saved);
+    } catch { /* ignore */ }
+  }, []);
+
+  const handleFontSizeChange = (next: FontSizeKey) => {
+    setFontSize(next);
+    try { localStorage.setItem('ziwei-insight-fontsize', next); } catch { /* ignore */ }
+  };
+
+  // Keep refs in sync and notify parent for persistence when not mid-stream
+  useEffect(() => {
+    messagesRef.current = messages;
+    if (!loading && messages.length > 0) {
+      onMessagesChange?.(messages);
+    }
+  }, [messages, loading, onMessagesChange]);
   useEffect(() => { loadingRef.current = loading; }, [loading]);
 
   // Auto-scroll
@@ -359,10 +409,38 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
   };
 
   return (
-    <div className="flex flex-col h-[min(44rem,80dvh)] min-h-0 min-w-0 rounded-xl overflow-hidden card-glass">
+    <div className="flex flex-col h-[min(44rem,80dvh)] lg:h-full lg:absolute lg:inset-0 min-h-0 min-w-0 rounded-xl overflow-hidden card-glass">
 
-      {/* ── Topic buttons ── */}
-      <div className="flex-shrink-0 px-2 pt-2.5 pb-2" style={{ borderBottom: '1px solid var(--t-border)' }}>
+      {/* ── Header + Font size switcher + Topic buttons ── */}
+      <div className="flex-shrink-0 px-3 pt-2.5 pb-2.5" style={{ borderBottom: '1px solid var(--t-border)' }}>
+        <div className="flex items-center justify-between mb-2 px-0.5">
+          <div className="text-xs font-medium tracking-widest flex items-center gap-1.5" style={{ color: 'var(--t-gold)' }}>
+            <span className="opacity-70">✦</span>
+            <span>AI 命理解读</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="text-[11px] mr-0.5" style={{ color: 'var(--t-faint)' }}>字号</span>
+            {(['sm', 'md', 'lg'] as FontSizeKey[]).map(key => {
+              const active = fontSize === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => handleFontSizeChange(key)}
+                  className="px-2 py-0.5 text-[11px] rounded transition-all"
+                  style={{
+                    background: active ? 'rgba(212,168,67,0.16)' : 'transparent',
+                    border: `1px solid ${active ? 'rgba(212,168,67,0.38)' : 'var(--t-border)'}`,
+                    color: active ? 'var(--t-gold)' : 'var(--t-faint)',
+                    fontWeight: active ? 600 : 400,
+                  }}
+                >
+                  {FONT_SIZE_CONFIG[key].label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
         <div className="grid grid-cols-6 gap-1">
           {TOPICS.map(t => {
             const isActive = activeTopic === t.key;
@@ -371,7 +449,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
                 key={t.key}
                 onClick={() => handleTopicClick(t.key)}
                 disabled={loading}
-                className="py-1.5 text-[10px] font-medium rounded-lg transition-all duration-150 disabled:opacity-40"
+                className="py-1.5 text-xs font-medium rounded-lg transition-all duration-150 disabled:opacity-40"
                 style={{
                   background: isActive ? 'rgba(212,168,67,0.12)' : 'transparent',
                   border: `1px solid ${isActive ? 'rgba(212,168,67,0.3)' : 'var(--t-border)'}`,
@@ -392,7 +470,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <div className="text-4xl mb-3" style={{ color: 'var(--t-gold)', opacity: 0.1 }}>✦</div>
-            <p className="text-[10px] animate-pulse" style={{ color: 'var(--t-faint)' }}>命格解读生成中…</p>
+            <p className="text-xs animate-pulse" style={{ color: 'var(--t-faint)' }}>命格解读生成中…</p>
           </div>
         )}
 
@@ -409,11 +487,12 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
                   className="flex justify-end"
                 >
                   <div
-                    className="max-w-[85%] rounded-xl px-3 py-2 text-[11px]"
+                    className="max-w-[85%] rounded-xl px-3.5 py-2"
                     style={{
                       background: 'rgba(212,168,67,0.08)',
                       border: '1px solid rgba(212,168,67,0.18)',
                       color: 'var(--t-gold)',
+                      fontSize: `${(FONT_SIZE_CONFIG[fontSize] ?? FONT_SIZE_CONFIG.md).bubblePx}px`,
                     }}
                   >
                     {msg.content}
@@ -431,13 +510,13 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
                 animate={{ opacity: 1, y: 0 }}
               >
                 <div
-                  className="text-[9px] tracking-widest mb-2 flex items-center gap-1.5"
+                  className="text-[11px] tracking-widest mb-2 flex items-center gap-1.5"
                   style={{ color: 'var(--t-faint)' }}
                 >
-                  <span style={{ color: 'var(--t-gold)', opacity: 0.4 }}>✦</span>
+                  <span style={{ color: 'var(--t-gold)', opacity: 0.5 }}>✦</span>
                   命理解读
                 </div>
-                <AiContent text={msg.content} streaming={loading && isLastMsg} />
+                <AiContent text={msg.content} streaming={loading && isLastMsg} fontSize={fontSize} />
               </motion.div>
             );
           })}
@@ -454,7 +533,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend()}
             placeholder="继续追问，如：今年适合换工作吗？"
             disabled={loading}
-            className="flex-1 rounded-lg px-3 py-2 text-[11px] focus:outline-none transition-colors"
+            className="flex-1 rounded-lg px-3 py-2 text-xs focus:outline-none transition-colors"
             style={{
               background: 'var(--t-card)',
               border: '1px solid var(--t-border)',
@@ -464,7 +543,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
           <button
             onClick={handleSend}
             disabled={loading || !input.trim()}
-            className="px-3 py-2 rounded-lg text-[11px] font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-3.5 py-2 rounded-lg text-xs font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             style={{
               background: 'rgba(212,168,67,0.15)',
               border: '1px solid rgba(212,168,67,0.25)',
