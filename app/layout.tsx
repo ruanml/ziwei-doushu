@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: '紫微命盘 · 倪海厦正宗紫微斗数',
     description: '基于倪海厦《天纪》紫微斗数体系，在线排盘与 AI 深度命理解读、双人合盘分析。',
   },
