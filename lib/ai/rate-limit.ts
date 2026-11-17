@@ -11,7 +11,7 @@
  *   - 未配置 REDIS_URL 或 Redis 故障时，自动回退到进程内内存限流器。
  */
 
-import Redis from 'ioredis';
+import { getSharedRedisUrl, withRedisRetry } from './redis';
 
 export interface RateLimitResult {
   allowed: boolean;
@@ -88,8 +88,6 @@ interface MemEntry {
 
 const globalForRateLimit = globalThis as unknown as {
   __ziweiRateLimitMap?: Map<string, MemEntry>;
-  __ziweiRedisClient?: Redis | null;
-  __ziweiRedisUrl?: string;
 };
 
 function getMemStore(): Map<string, MemEntry> {
@@ -163,61 +161,7 @@ if n_global == 1 then redis.call('EXPIRE', KEYS[3], tonumber(ARGV[5])) end
 return {0, 0}
 `;
 
-function normalizeRedisUrl(raw: string | undefined): string | null {
-  if (!raw) return null;
-  let url = raw.trim().replace(/^["']|["']$/g, '');
-  // 若用户误把 "redis-cli --tls -u rediss://..." 整条命令填进环境变量，提取其中的 URL
-  const match = url.match(/rediss?:\/\/\S+/i);
-  if (match) url = match[0];
-  if (!/^rediss?:\/\//i.test(url)) return null;
-  // Upstash 等云端 6379 端口普遍强制 TLS：若域名含 upstash.io 且误写成 redis://，自动升级为 rediss://
-  if (/^redis:\/\//i.test(url) && /\.upstash\.io/i.test(url)) {
-    url = url.replace(/^redis:\/\//i, 'rediss://');
-  }
-  return url;
-}
-
-function createFreshRedisClient(url: string): Redis {
-  const client = new Redis(url, {
-    maxRetriesPerRequest: 1,
-    connectTimeout: 4000,
-    commandTimeout: 4000,
-    enableReadyCheck: false,
-    retryStrategy: () => null,
-    lazyConnect: true,
-  });
-  client.on('error', (err) => {
-    console.warn('[rate-limit] Redis client error:', err?.message || err);
-  });
-  return client;
-}
-
-function getRedisClient(forceRecreate = false): Redis | null {
-  const url = normalizeRedisUrl(process.env.REDIS_URL || process.env.KV_URL);
-  if (!url) return null;
-  const existing = globalForRateLimit.__ziweiRedisClient;
-  if (
-    !forceRecreate &&
-    existing &&
-    globalForRateLimit.__ziweiRedisUrl === url &&
-    existing.status !== 'end' &&
-    existing.status !== 'close'
-  ) {
-    return existing;
-  }
-  if (existing) {
-    try { existing.disconnect(); } catch { /* ignore */ }
-  }
-  try {
-    const client = createFreshRedisClient(url);
-    globalForRateLimit.__ziweiRedisClient = client;
-    globalForRateLimit.__ziweiRedisUrl = url;
-    return client;
-  } catch (e) {
-    console.warn('[rate-limit] Redis init failed:', e instanceof Error ? e.message : e);
-    return null;
-  }
-}
+// ─── Redis 检查逻辑（连接管理已抽至 lib/ai/redis.ts）───
 
 function buildBlockedResponse(reason: 'ip_minute' | 'ip_day' | 'global_day', retryAfterSeconds: number, cfg: RateLimitConfig): RateLimitResult {
   if (reason === 'ip_minute') {
@@ -277,47 +221,29 @@ export async function checkAiRateLimit(req: Request, nowMs = Date.now()): Promis
   if (!cfg.enabled) return { allowed: true };
 
   const ip = getClientIp(req);
-  let redis = getRedisClient();
+  const redisUrl = getSharedRedisUrl();
 
-  if (redis) {
+  if (redisUrl) {
     const { dayKey, ttlSeconds, minBucket, minTtlSeconds } = getUtc8DayWindow(nowMs);
     const minKey = `ziwei:rl:ip:min:${minBucket}:${ip}`;
     const dayIpKey = `ziwei:rl:ip:day:${dayKey}:${ip}`;
     const globalKey = `ziwei:rl:global:day:${dayKey}`;
 
-    const runEval = async (client: Redis) => {
-      if (client.status === 'wait') {
-        await client.connect();
-      }
-      return (await client.eval(
-        REDIS_LUA_SCRIPT,
-        3,
-        minKey,
-        dayIpKey,
-        globalKey,
-        String(cfg.ipPerMin),
-        String(cfg.ipPerDay),
-        String(cfg.globalPerDay),
-        String(minTtlSeconds),
-        String(ttlSeconds),
-      )) as [number, number];
-    };
-
     try {
-      let res: [number, number];
-      try {
-        res = await runEval(redis);
-      } catch (firstErr) {
-        // Serverless 实例冻结唤醒后，复用中的 socket 可能已是半开/关闭状态；重建连接重试一次
-        const msg = firstErr instanceof Error ? firstErr.message : '';
-        if (/closed|ended|ECONNRESET/i.test(msg)) {
-          redis = getRedisClient(true);
-          if (!redis) throw firstErr;
-          res = await runEval(redis);
-        } else {
-          throw firstErr;
-        }
-      }
+      const res = (await withRedisRetry(client =>
+        client.eval(
+          REDIS_LUA_SCRIPT,
+          3,
+          minKey,
+          dayIpKey,
+          globalKey,
+          String(cfg.ipPerMin),
+          String(cfg.ipPerDay),
+          String(cfg.globalPerDay),
+          String(minTtlSeconds),
+          String(ttlSeconds),
+        ),
+      )) as [number, number] | null;
 
       const [code, ttl] = Array.isArray(res) ? res : [0, 0];
       if (code === 1) return buildBlockedResponse('ip_minute', Math.max(1, Number(ttl) || minTtlSeconds), cfg);
@@ -325,8 +251,8 @@ export async function checkAiRateLimit(req: Request, nowMs = Date.now()): Promis
       if (code === 3) return buildBlockedResponse('global_day', Math.max(1, Number(ttl) || ttlSeconds), cfg);
       return { allowed: true };
     } catch (e) {
-      const host = (() => { try { return new URL(globalForRateLimit.__ziweiRedisUrl || '').host; } catch { return 'unknown'; } })();
-      console.warn(`[rate-limit] Redis unavailable (host=${host}, status=${redis?.status}), falling back to in-memory limiter:`, e instanceof Error ? e.message : e);
+      const host = (() => { try { return new URL(redisUrl).host; } catch { return 'unknown'; } })();
+      console.warn(`[rate-limit] Redis unavailable (host=${host}), falling back to in-memory limiter:`, e instanceof Error ? e.message : e);
     }
   }
 

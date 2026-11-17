@@ -21,6 +21,12 @@ import { BRANCHES, STEMS} from '@/lib/ziwei/constants';
 import { detectPatterns} from '@/lib/ziwei/patterns';
 import { createInterpretStream } from '@/lib/ai/interpret-stream';
 import { checkAiRateLimit } from '@/lib/ai/rate-limit';
+import {
+  buildAiCacheKey,
+  createCachedSseResponse,
+  getCachedAiResponse,
+  setCachedAiResponse,
+} from '@/lib/ai/cache';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -175,6 +181,18 @@ if (!messages.length || messages[messages.length - 1].role!== 'user') {
 messages = [...messages, { role: 'user', content: '请总览这张命盘：命格定调、性格、事业、财运、感情、健康逐项解读，并给出建议。'}];
 }
 
+// 仅对单轮固定专题 / 首次提问启用缓存，避免多轮对话上下文差异导致误命中
+const isSingleTurn = messages.length === 1 && messages[0].role === 'user';
+const cacheKey = isSingleTurn
+  ? buildAiCacheKey('interpret', cfg.model, systemPrompt, messages[0].content)
+  : null;
+if (cacheKey) {
+  const cached = await getCachedAiResponse(cacheKey);
+  if (cached) {
+    return createCachedSseResponse(cached);
+  }
+}
+
 const rl = await checkAiRateLimit(req);
 if (!rl.allowed) {
 return Response.json(
@@ -235,7 +253,11 @@ console.error(`[interpret] upstream ${upstream.status}: ${detail}`);
 return Response.json({ error: `模型接口返回 ${upstream.status}`}, { status: 502});
 }
 
-const stream = createInterpretStream(upstream.body, cleanup);
+const stream = createInterpretStream(
+  upstream.body,
+  cleanup,
+  cacheKey ? (fullText) => { void setCachedAiResponse(cacheKey, fullText); } : undefined,
+);
 
 return new Response(stream, {
 headers: {

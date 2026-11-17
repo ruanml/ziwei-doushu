@@ -2,12 +2,14 @@
 export function createInterpretStream(
   body: ReadableStream<Uint8Array>,
   onClose: () => void = () => {},
+  onComplete?: (fullText: string) => void,
 ): ReadableStream<Uint8Array> {
   const reader = body.getReader();
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
   let buffer = '';
   let finished = false;
+  let fullText = '';
 
   const cleanup = () => {
     finished = true;
@@ -18,6 +20,9 @@ export function createInterpretStream(
   return new ReadableStream<Uint8Array>({
     async pull(controller) {
       const finish = () => {
+        if (onComplete && fullText) {
+          try { onComplete(fullText); } catch { /* ignore */ }
+        }
         controller.enqueue(encoder.encode('data: [DONE]\n\n'));
         controller.close();
         cleanup();
@@ -53,6 +58,7 @@ export function createInterpretStream(
             }
             const text = json.choices?.[0]?.delta?.content;
             if (typeof text === 'string' && text) {
+              fullText += text;
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { text } })}\n\n`));
               emitted = true;
             }

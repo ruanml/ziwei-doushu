@@ -15,6 +15,12 @@ import { detectPatterns } from '@/lib/ziwei/patterns';
 import { getSiHuaByStem } from '@/lib/ziwei/sihua';
 import { createInterpretStream } from '@/lib/ai/interpret-stream';
 import { checkAiRateLimit } from '@/lib/ai/rate-limit';
+import {
+  buildAiCacheKey,
+  createCachedSseResponse,
+  getCachedAiResponse,
+  setCachedAiResponse,
+} from '@/lib/ai/cache';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -269,6 +275,12 @@ export async function POST(req: Request) {
     return Response.json({ error: '请求体不合法，需要有效的 { chartA, chartB }' }, { status: 400 });
   }
 
+  const cacheKey = buildAiCacheKey('heming', cfg.model, systemPrompt, userPrompt);
+  const cached = await getCachedAiResponse(cacheKey);
+  if (cached) {
+    return createCachedSseResponse(cached);
+  }
+
   const rl = await checkAiRateLimit(req);
   if (!rl.allowed) {
     return Response.json(
@@ -329,7 +341,11 @@ export async function POST(req: Request) {
     return Response.json({ error: `模型接口返回 ${upstream.status}` }, { status: 502 });
   }
 
-  const stream = createInterpretStream(upstream.body, cleanup);
+  const stream = createInterpretStream(
+    upstream.body,
+    cleanup,
+    (fullText) => { void setCachedAiResponse(cacheKey, fullText); },
+  );
 
   return new Response(stream, {
     headers: {
