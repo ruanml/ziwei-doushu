@@ -116,9 +116,9 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
           gridTemplateColumns: 'repeat(4, 1fr)',
           gridTemplateRows: 'repeat(4, auto)',
           gap: '1px',
-          background: 'var(--t-border)',
-          border: '1px solid var(--t-border)',
-          boxShadow: '0 4px 32px rgba(0,0,0,0.15)',
+          background: 'var(--t-border-acc)',
+          border: '1.5px solid var(--t-border-acc)',
+          boxShadow: 'var(--sh-sm)',
         }}
       >
         {ANIMATION_ORDER.map((branch, i) => {
@@ -133,7 +133,7 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
                 onStarClick={(star) => onStarSelect?.(star, palace)}
                 isSelected={selectedBranch === branch}
                 isSanFang={!!(sanFangSet?.has(branch) && selectedBranch !== branch)}
-                delay={i * 0.04}
+                delay={i * 0.03}
                 overlayStarSiHua={Object.keys(overlayData).length > 0 ? overlayData : undefined}
                 overlayLabel={overlayLabel}
                 onSiHuaClick={(starName, siHua) => onSiHuaClick?.(starName, siHua, timeView)}
@@ -142,42 +142,58 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
           );
         })}
 
-        {/* 中央信息区 */}
+        {/* 中央信息区（方案一：清晰档案卡风格） */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-col items-center justify-center p-4 gap-3"
-          style={{ gridRow: '2 / 4', gridColumn: '2 / 4', background: 'var(--t-bg)' }}
+          transition={{ delay: 0.35 }}
+          className="palace-center-tile flex flex-col items-center justify-center p-4 sm:p-5 gap-3"
+          style={{ gridRow: '2 / 4', gridColumn: '2 / 4', background: 'var(--t-card)' }}
         >
-          <div className="text-5xl select-none leading-none" style={{ color: 'var(--t-gold)', opacity: 0.12, filter: 'drop-shadow(0 0 12px rgba(180,120,30,0.15))' }}>
-            ☯
+          <div
+            className="text-base sm:text-lg font-bold tracking-[0.22em]"
+            style={{ color: 'var(--t-gold)', fontFamily: 'var(--font-serif)' }}
+          >
+            ✦ 紫微斗数命盘 ✦
           </div>
 
-          <div className="text-center space-y-1">
-            <div className="text-[9px] tracking-[0.3em] font-medium" style={{ color: 'var(--t-gold)' }}>紫微斗数</div>
-            <div className="text-[10px] space-y-0.5" style={{ color: 'var(--t-faint)' }}>
-              <div>命宫 <span style={{ color: 'var(--t-gold)', opacity: 0.7 }}>{BRANCHES[chart.mingGongBranch]}</span></div>
-              <div>身宫 <span className="text-sky-500/70">{BRANCHES[chart.shenGongBranch]}</span></div>
-              <div className="text-[9px]" style={{ color: 'var(--t-gold)', opacity: 0.75 }}>{chart.wuxingJuName}</div>
-            </div>
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 text-xs rounded-lg px-4 py-2.5"
+            style={{
+              background: 'var(--t-bg)',
+              border: '1px solid var(--t-border-acc)',
+              color: 'var(--t-text2)',
+            }}
+          >
+            <div>五行局：<strong style={{ color: 'var(--t-gold)' }}>{chart.wuxingJuName}</strong></div>
+            <div>命宫：<strong style={{ color: 'var(--t-gold)' }}>{BRANCHES[chart.mingGongBranch]}宫</strong></div>
+            <div>身宫：<strong style={{ color: '#1d5bbf' }}>{BRANCHES[chart.shenGongBranch]}宫</strong></div>
+            <div>命主：<strong style={{ color: 'var(--t-text)' }}>{chart.mingZhu ?? '-'}</strong></div>
+            <div>身主：<strong style={{ color: 'var(--t-text)' }}>{chart.shenZhu ?? '-'}</strong></div>
+            <div>虚岁：<strong style={{ color: 'var(--t-text)' }}>{chart.currentAge}岁</strong></div>
           </div>
 
           {chart.currentDaXianIndex >= 0 && (() => {
             const dx = chart.daXians[chart.currentDaXianIndex];
             return (
-              <div className="border border-purple-500/30 rounded-lg px-3 py-1.5 text-center"
-                style={{ background: 'rgba(147,51,234,0.06)' }}>
-                <div className="text-[8px] text-purple-500/80 mb-0.5 tracking-wider">当前大限</div>
-                <div className="text-[12px] text-purple-400 font-medium tabular-nums">{dx.startAge}–{dx.endAge}岁</div>
-                <div className="text-[9px] text-purple-500/60">{dx.palaceName}</div>
+              <div
+                className="rounded-lg px-4 py-1.5 text-center"
+                style={{
+                  background: 'rgba(184,136,36,0.10)',
+                  border: '1px solid var(--t-border-acc)',
+                }}
+              >
+                <span className="text-xs font-semibold tabular-nums" style={{ color: 'var(--t-gold)' }}>
+                  当前大限：{dx.startAge}–{dx.endAge} 岁 · 行运【{dx.palaceName}】
+                </span>
               </div>
             );
           })()}
 
-          <div className="text-[8px] text-center leading-relaxed font-mono" style={{ color: 'var(--t-faint)', opacity: 0.75 }}>
-            {chart.lunarInfo.lunarYear}·{chart.lunarInfo.isLeapMonth ? '闰' : ''}
-            {chart.lunarInfo.lunarMonth}·{chart.lunarInfo.lunarDay}
+          <div className="text-[11px] text-center leading-relaxed font-mono" style={{ color: 'var(--t-faint)' }}>
+            农历 {chart.lunarInfo.lunarYear}年{chart.lunarInfo.isLeapMonth ? '闰' : ''}
+            {Math.abs(chart.lunarInfo.lunarMonth)}月{chart.lunarInfo.lunarDay}日
+            {chart.lunarInfo.fourPillars?.length ? ` · 四柱 ${chart.lunarInfo.fourPillars.join(' ')}` : ''}
           </div>
         </motion.div>
 
@@ -262,19 +278,25 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-        className="mt-3 flex items-center justify-center gap-2 text-[9px] flex-wrap"
+        transition={{ delay: 0.5 }}
+        className="mt-2.5 flex items-center justify-center gap-2 text-[11px] flex-wrap"
       >
         {[
-          { h: '化禄', c: 'text-emerald-500 border-emerald-500/30' },
-          { h: '化权', c: 'text-blue-500 border-blue-500/30' },
-          { h: '化科', c: 'text-yellow-500 border-yellow-500/30' },
-          { h: '化忌', c: 'text-red-500 border-red-500/30' },
-        ].map(({ h, c }) => (
-          <span key={h} className={`border px-1.5 py-0.5 rounded-full font-medium ${c}`}>{h}</span>
+          { h: '化禄', bg: '#1f7a4c' },
+          { h: '化权', bg: '#1d5bbf' },
+          { h: '化科', bg: '#9a6b10' },
+          { h: '化忌', bg: '#b82e24' },
+        ].map(({ h, bg }) => (
+          <span
+            key={h}
+            className="px-2 py-0.5 rounded font-semibold text-white"
+            style={{ background: bg }}
+          >
+            {h}
+          </span>
         ))}
-        <span className="px-1.5 py-0.5 rounded-full" style={{ color: 'var(--t-faint)', border: '1px solid var(--t-border)' }}>
-          点击宫位看三方四正
+        <span className="px-2 py-0.5 rounded" style={{ color: 'var(--t-text2)', border: '1px solid var(--t-border)' }}>
+          点击宫位查看三方四正与解读
         </span>
       </motion.div>
     </div>
