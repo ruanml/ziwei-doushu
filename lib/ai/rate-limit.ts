@@ -178,13 +178,13 @@ function normalizeRedisUrl(raw: string | undefined): string | null {
 }
 
 function createFreshRedisClient(url: string): Redis {
-  const isTls = /^rediss:\/\//i.test(url);
   const client = new Redis(url, {
     maxRetriesPerRequest: 1,
     connectTimeout: 4000,
     commandTimeout: 4000,
+    enableReadyCheck: false,
+    retryStrategy: () => null,
     lazyConnect: true,
-    ...(isTls ? { tls: {} } : {}),
   });
   client.on('error', (err) => {
     console.warn('[rate-limit] Redis client error:', err?.message || err);
@@ -325,7 +325,8 @@ export async function checkAiRateLimit(req: Request, nowMs = Date.now()): Promis
       if (code === 3) return buildBlockedResponse('global_day', Math.max(1, Number(ttl) || ttlSeconds), cfg);
       return { allowed: true };
     } catch (e) {
-      console.warn('[rate-limit] Redis unavailable, falling back to in-memory limiter:', e instanceof Error ? e.message : e);
+      const host = (() => { try { return new URL(globalForRateLimit.__ziweiRedisUrl || '').host; } catch { return 'unknown'; } })();
+      console.warn(`[rate-limit] Redis unavailable (host=${host}, status=${redis?.status}), falling back to in-memory limiter:`, e instanceof Error ? e.message : e);
     }
   }
 
