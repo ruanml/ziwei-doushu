@@ -120,8 +120,9 @@ export default function HemingPage() {
       const decoder = new TextDecoder();
       let text = '';
       let pendingLine = '';
+      let streamDone = false;
 
-      while (true) {
+      while (!streamDone) {
         const { done, value } = await reader.read();
         if (done) break;
         pendingLine += decoder.decode(value, { stream: true });
@@ -130,8 +131,8 @@ export default function HemingPage() {
         for (const rawLine of lines) {
           const line = rawLine.endsWith('\r') ? rawLine.slice(0, -1) : rawLine;
           if (!line.startsWith('data: ')) continue;
-          const data = line.slice(6);
-          if (data === '[DONE]') break;
+          const data = line.slice(6).trim();
+          if (data === '[DONE]') { streamDone = true; break; }
           try {
             const delta = JSON.parse(data).delta?.text ?? '';
             text += delta;
@@ -139,6 +140,7 @@ export default function HemingPage() {
           } catch { /* skip */ }
         }
       }
+      reader.cancel().catch(() => {});
       // scroll to analysis
       setTimeout(() => analysisRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     } catch {

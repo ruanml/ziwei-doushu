@@ -21,9 +21,10 @@ new Function('exports', 'setTimeout', ts.transpileModule(body, {
 }).outputText)(moduleExports, () => {});
 const noop = () => {};
 const form = { year: '1990', month: '1', day: '1', gender: 'male', clockHour: '8', clockMinute: '0' };
-async function consume(chunks: Uint8Array[]) {
+async function consume(chunks: Uint8Array[], closeStream = true) {
   let text = '';
   let failed = false;
+  let cancelled = false;
   await moduleExports.makeRun({
     chartA: {}, chartB: {}, formA: form, formB: form,
     generateChart: async () => ({}), formToBirthInfo: () => ({}),
@@ -32,10 +33,15 @@ async function consume(chunks: Uint8Array[]) {
     setAnalysisError: (value: boolean) => { failed = value; },
     setApiMissing: noop, analysisRef: { current: null },
     fetch: async () => ({ status: 200, ok: true, body: new ReadableStream({
-      start(controller) { for (const chunk of chunks) controller.enqueue(chunk); controller.close(); },
+      start(controller) {
+        for (const chunk of chunks) controller.enqueue(chunk);
+        if (closeStream) controller.close();
+      },
+      cancel() { cancelled = true; },
     }) }),
   })();
   assert.equal(failed, false);
+  if (!closeStream) assert.equal(cancelled, true, 'must cancel reader on [DONE] without waiting for socket EOF');
   return text;
 }
 async function main() {
@@ -45,11 +51,12 @@ async function main() {
       `data: {"delta":{"text":"世界"}}${ending}${ending}data: [DONE]${ending}${ending}`,
     );
     assert.equal(await consume([bytes]), '你好世界');
+    assert.equal(await consume([bytes], false), '你好世界');
     for (let cut = 1; cut < bytes.length; cut++) {
-      assert.equal(await consume([bytes.slice(0, cut), bytes.slice(cut)]), '你好世界', `byte split ${cut}`);
+      assert.equal(await consume([bytes.slice(0, cut), bytes.slice(cut)], false), '你好世界', `byte split ${cut}`);
     }
-    assert.equal(await consume(Array.from(bytes, byte => Uint8Array.of(byte))), '你好世界');
+    assert.equal(await consume(Array.from(bytes, byte => Uint8Array.of(byte)), false), '你好世界');
   }
-  console.log('Heming SSE byte-fragment regressions passed');
+  console.log('Heming SSE byte-fragment and unclosed-socket [DONE] regressions passed');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });
