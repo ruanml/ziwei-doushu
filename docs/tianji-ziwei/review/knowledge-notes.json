@@ -1,0 +1,2099 @@
+{
+  "reviewedAt": "2026-11-18",
+  "basis": "仓库转录文本逐句对照；两处另对照古籍电子录文。未回听原视频，未校影印底本。",
+  "sources": {
+    "qs-1-tianfu": {
+      "kind": "classic",
+      "label": "《紫微斗数全书》卷一 · 问天府所主若何（维基文库电子录文）",
+      "url": "https://zh.wikisource.org/zh-hans/紫微斗數全書/卷一",
+      "section": "问天府所主若何",
+      "reviewLevel": "electronic-text-compared",
+      "note": "已对照电子录文，未对照影印底本。"
+    },
+    "qs-2-lianzhen": {
+      "kind": "classic",
+      "label": "《紫微斗数全书》卷二 · 廉贞：子午、辰戌宫（维基文库电子录文）",
+      "url": "https://zh.wikisource.org/zh-hans/紫微斗數全書/卷二",
+      "section": "廉贞：子午、辰戌宫",
+      "reviewLevel": "electronic-text-compared",
+      "note": "已对照电子录文，未对照影印底本。"
+    },
+    "tj-6cdd376e31a4": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:26:02 · 紫微（北斗 · 帝星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1562",
+      "line": 255,
+      "entryHash": "6cdd376e31a4826a8afb6d5887a4d4446c7e238f5b9e2dbafac5e1e00541b097",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-cc0a66fc853a": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:26:39 · 紫微（北斗 · 帝星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1599",
+      "line": 257,
+      "entryHash": "cc0a66fc853a53650364c556648e624c30a35c39d33d2ffb850c803c686600d3",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-641880166d93": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:31:02 · 紫微（北斗 · 帝星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1862",
+      "line": 267,
+      "entryHash": "641880166d93335a10e8e62f43421516eb6e5f328435c0fedb157e7c150c67c6",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-73db636ce59c": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:29:28 · 紫微（北斗 · 帝星） / 必需辅弼",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1768",
+      "line": 264,
+      "entryHash": "73db636ce59caff70e34c6569c7f860cdb63fb1ed2d7729344b9837ff8ef9d9b",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-631db05e2350": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:30:19 · 紫微（北斗 · 帝星） / 必需辅弼",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1819",
+      "line": 265,
+      "entryHash": "631db05e2350e45de6236b40ebd6ca65b182fdff09dbd78fa00f66a8fb49d768",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ac543d595ff5": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:34:22 · 天机（北斗 · 文官代） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2062",
+      "line": 275,
+      "entryHash": "ac543d595ff5c9fd451af5c6ad73ca0a31a92a68a9f6fb4ee2c002acaedce433",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-910b87cffbf5": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:34:41 · 天机（北斗 · 文官代） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2081",
+      "line": 276,
+      "entryHash": "910b87cffbf51925efe47fcf7bbd732c23636f34202cc27c8982b62f1588a7e3",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-4f98d14d82c2": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:35:06 · 天机（北斗 · 文官代） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2106",
+      "line": 277,
+      "entryHash": "4f98d14d82c274700cadddf863a1669e973c2bc1e94a2e2a29879d4f44e3bbc2",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-18aa43309444": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:35:18 · 天机（北斗 · 文官代） / 长相",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2118",
+      "line": 278,
+      "entryHash": "18aa433094449f7677da6fc3f8fa895faa35332a4430f0f775b7e6897c5d40d7",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-f9effb463087": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:36:17 · 太阳（中天 · 主贵星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2177",
+      "line": 280,
+      "entryHash": "f9effb46308724c8eedf2c643b0e49a15a2ac01c8f5d4c9e145f6b943ecdf77c",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-8c8b118a5d86": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:36:54 · 太阳（中天 · 主贵星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2214",
+      "line": 281,
+      "entryHash": "8c8b118a5d86e2984d95e1f4ca2c6cb3c20579dd49b74561591fe89794da4d76",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-5afda6ea058c": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:38:36 · 太阳（中天 · 主贵星） / 入庙落陷",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2316",
+      "line": 286,
+      "entryHash": "5afda6ea058c9aaa2a9b4f7fbcd5d733139f8c9aa4271080a73c8c90ed8273cb",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-5f0677b12881": {
+      "kind": "transcript",
+      "label": "《天纪》P15 00:00:21 · 太阳（中天 · 主贵星） / 入庙落陷",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=15&t=21",
+      "line": 893,
+      "entryHash": "5f0677b128816b1285c49b9dc0f3ba56e733f8f08a25d819472daac0dbb6ffef",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-bf87f385fb4f": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:40:19 · 武曲（北斗 · 财星/武官星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2419",
+      "line": 288,
+      "entryHash": "bf87f385fb4f545d58becb132e6a6759a95cf3a728b001f407b39384db5ef9dd",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-86847d0e06e5": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:51:17 · 武曲（北斗 · 财星/武官星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=3077",
+      "line": 726,
+      "entryHash": "86847d0e06e5ced85ed2d7d16b735e949daa12d06d2a7900ff34078e56085dcb",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-95be645f20bd": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:42:32 · 天同（南斗 · 福星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2552",
+      "line": 293,
+      "entryHash": "95be645f20bd07e9cb5f7148466f607a499967401e6f45d69ad2bbb66adefe5e",
+      "note": "勘误：按《紫微斗数全书》，天同属南斗，不属北斗（卷一「天同南斗益算保生之星」，卷二「天同属水金南斗」）。倪师把紫微一组的星都称北斗星系，与《全书》有出入。详见 docs/勘误.md",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-97d6070cee38": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:42:50 · 天同（南斗 · 福星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2570",
+      "line": 294,
+      "entryHash": "97d6070cee38b9c55df65acf6b78046576b4d19932fa6f28c4f8382829a4d6fa",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-48559e769659": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:45:22 · 天同（南斗 · 福星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2722",
+      "line": 297,
+      "entryHash": "48559e769659460830edcf72f58cd5f1c3ce7ad9f30b12f52b93fb06241a3313",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-8f6fe59fbc34": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:42:58 · 天同（南斗 · 福星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2578",
+      "line": 295,
+      "entryHash": "8f6fe59fbc344dc2d22408f3c0d2331c32ab7fc8aad3ecdbfeb1b26734852b13",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-a87b482e5ad1": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:46:17 · 廉贞（北斗 · 桃花/官符） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2777",
+      "line": 299,
+      "entryHash": "a87b482e5ad124a861b87be728c19e0c27719a363072ace29ecb964eb1dc97ed",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-b0fd80f229e2": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:47:12 · 廉贞（北斗 · 桃花/官符） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2832",
+      "line": 302,
+      "entryHash": "b0fd80f229e27a9b4322744b40acd5f9571e60d8479848cd101bf3ba025dfd97",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ebb20160683f": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:48:02 · 天府（南斗 · 帝星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2882",
+      "line": 304,
+      "entryHash": "ebb20160683f168c2c784f7583056691e5b9780d3b55afd7241b44260096d936",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-b01b1d1a6bc2": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:51:17 · 天府（南斗 · 帝星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3077",
+      "line": 307,
+      "entryHash": "b01b1d1a6bc2668f064022695abe1a0e2fbf1fc301cb4e06e950c106d8b313ea",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ae97f1fde65f": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:48:21 · 天府（南斗 · 帝星） / 解厄",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2901",
+      "line": 305,
+      "entryHash": "ae97f1fde65f1cb01d8d0b80e87304b9f1c94327e7d6a3fb7b73dfbd4e0ed573",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-3f0829e1e18c": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:53:06 · 天府（南斗 · 帝星） / 解厄",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3186",
+      "line": 312,
+      "entryHash": "3f0829e1e18ca4c8eb8f5cdc8ad8460eb621ecff29228db7c217173f8342b158",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-4d4a1c7e3d52": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:27:56 · 天府（南斗 · 帝星） / 三台八座",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=1676",
+      "line": 395,
+      "entryHash": "4d4a1c7e3d5272ab038219d5d4c211353e45d1fce67974a9c68e33760fed8110",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-8cb510c9a7a7": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:53:30 · 太阴（中天 · 主富星） / 入庙落陷",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3210",
+      "line": 313,
+      "entryHash": "8cb510c9a7a7ff22f75d82c6828bb2c1b5fda02430423e98761a3bd26a78f4af",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-9bd21268b60c": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:34:32 · 太阴（中天 · 主富星） / 入庙落陷",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=2072",
+      "line": 830,
+      "entryHash": "9bd21268b60c00a9c5cae7921f2d40946d1c6fe66e7c13a7c5e37508bbaf5389",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-37e9236445cc": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:54:07 · 太阴（中天 · 主富星） / 太阴在职业",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3247",
+      "line": 315,
+      "entryHash": "37e9236445cc6c59b21a5d99c4cb14100818ddf5ee6c9f1dc300e7db3641d86a",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-63e597354d5c": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:02:08 · 贪狼（北斗 · 桃花/财气） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=128",
+      "line": 328,
+      "entryHash": "63e597354d5cc6c3c9b76cefcedce40279215e38a16c5a6703dcc3a3e4b415a2",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-edbb50534232": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:02:54 · 贪狼（北斗 · 桃花/财气） / 亥子宫为正科桃花",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=174",
+      "line": 460,
+      "entryHash": "edbb5053423289b00aebc58d49a9f00bd5cbd83f9284655611a7741c443a40ce",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-299c724e8d19": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:03:14 · 贪狼（北斗 · 桃花/财气） / 午宫为武官星",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=194",
+      "line": 461,
+      "entryHash": "299c724e8d19cd904ef6916f0f3854aa166aeb698298a87a454d689f3e57bc8e",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-8910d5b5ee8e": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:46:04 · 贪狼（北斗 · 桃花/财气） / 亥子宫为正科桃花",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=2764",
+      "line": 1278,
+      "entryHash": "8910d5b5ee8ec4edf1da37e3a16aaef75ca5a4c82a924f66eca66c4021e12082",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-b0acc542df56": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:48:07 · 巨门（北斗 · 暗星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=2887",
+      "line": 443,
+      "entryHash": "b0acc542df5648a6987ea24d48c1bf2228da224fe12536f941fcde5c6a138717",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-272aaa07b21b": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:50:57 · 巨门（北斗 · 暗星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=3057",
+      "line": 452,
+      "entryHash": "272aaa07b21bf4fcb595509cbf39acbab6d6a99326be9277ad76eb6c11c8ab93",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-0f6642851966": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:51:09 · 巨门（北斗 · 暗星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=3069",
+      "line": 453,
+      "entryHash": "0f66428519660f088dada1c33f06bf564e452e3ed1bfc4bf6d0a7091cf3eb8c4",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-f18a578e6b33": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:56:55 · 天相（南斗 · 印星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3415",
+      "line": 321,
+      "entryHash": "f18a578e6b33a58a9bdbc7b5dffff522012ab8d9c74c17a8c6b695f7e1133f6a",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-7411f3cfcb55": {
+      "kind": "transcript",
+      "label": "《天纪》P17 00:04:07 · 天相（南斗 · 印星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=17&t=247",
+      "line": 1044,
+      "entryHash": "7411f3cfcb55520023e9c1bd4a6859b11082a22ee53590e6643c1a98ff083169",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-8cc6a86eda2c": {
+      "kind": "transcript",
+      "label": "《天纪》P17 00:04:17 · 天相（南斗 · 印星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=17&t=257",
+      "line": 1045,
+      "entryHash": "8cc6a86eda2c8e388dad19e9110d1594b51166e6bea043d80a1c6ea374012c32",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-b67a41d1225b": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:55:34 · 天梁（南斗 · 阴贵星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3334",
+      "line": 319,
+      "entryHash": "b67a41d1225b72d1a8ec525ef8c411a210ac2a6063122bd91b1328d66f9918ed",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-602e1ade9818": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:00:35 · 天梁（南斗 · 阴贵星） / 天梁在午宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=35",
+      "line": 750,
+      "entryHash": "602e1ade9818a340ec5bad28fff637ede8ab62218f6942c7540b136071bae11c",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-86142a54c3f6": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:01:02 · 天梁（南斗 · 阴贵星） / 天梁在午宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=62",
+      "line": 751,
+      "entryHash": "86142a54c3f639a1571169c5b7235aec43b5694ceb966eaa0db20b7920a3a1bd",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-85a9dba73435": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:00:07 · 七杀（南斗 · 杀星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=7",
+      "line": 324,
+      "entryHash": "85a9dba73435194c0f7527a599070ff9bd51b05394232f4b6904d984183a6cbe",
+      "note": "cleaned〕〔勘误：按《紫微斗数全书》，这三颗里只有七杀属南斗（卷一「七杀南斗第六星也」），破军、贪狼都属北斗（「破军属水，北斗第七星也」「贪狼北斗解厄之神，第一星也」）。倪师把天府一组的星都称南斗星系，与《全书》有出入。详见 docs/勘误.md",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ab1d97b82e02": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:01:32 · 七杀（南斗 · 杀星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=92",
+      "line": 1170,
+      "entryHash": "ab1d97b82e020a08c22a4a2d8b01cd5420188d66d3bfb23135c79c52b4585deb",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-04369a9a1ab6": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:29:16 · 七杀（南斗 · 杀星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=1756",
+      "line": 818,
+      "entryHash": "04369a9a1ab6fc642f99be722afb7a7903a8ee0f4b2962a896735091c562f758",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-76dc31b5f471": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:29:37 · 七杀（南斗 · 杀星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=1777",
+      "line": 819,
+      "entryHash": "76dc31b5f471fb066b9548ab1f8cfd3dee81505c1d748ccbb988b359f1e67034",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-0494516d948d": {
+      "kind": "transcript",
+      "label": "《天纪》P7 00:01:13 · 破军（北斗 · 杀星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=7&t=73",
+      "line": 326,
+      "entryHash": "0494516d948d4d0e039ec8737864ba66044f0c07a0bd9b76e3bc482216046a3d",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-25b939063c32": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:01:13 · 破军（北斗 · 杀星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=73",
+      "line": 1169,
+      "entryHash": "25b939063c3251c9fbead0dae4b6731deb4074be36efa82350442a521cec5281",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-6b0e318a1b32": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:54:05 · 破军（北斗 · 杀星） / 英星入庙",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=3245",
+      "line": 882,
+      "entryHash": "6b0e318a1b326b2f77580fa572d6af4d2dc7b0501257a12be5e1ed68fa3121f7",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-5432baf19f8f": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:55:00 · 破军（北斗 · 杀星） / 英星入庙",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=3300",
+      "line": 884,
+      "entryHash": "5432baf19f8fd1f44144a55cc409adeb2a9295a8c6340dc51504a36a92082593",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-107aea4d3082": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:27:53 · 紫微（北斗 · 帝星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1673",
+      "line": 260,
+      "entryHash": "107aea4d3082a192ef6d84e69e204fa6f091cdf0c05fcd74f4974fe1b46750e1",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-97360eef6d3e": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:42:37 · 太阳（中天 · 主贵星） / 太阳与女命",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=2557",
+      "line": 849,
+      "entryHash": "97360eef6d3ef38888f6e04718e768eaf64f5e8eb81b9851b87ed3343a7309dc",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-26a2f5faa694": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:49:01 · 天府（南斗 · 帝星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2941",
+      "line": 306,
+      "entryHash": "26a2f5faa694caf0ef2d6b8468e0693521c589c088ad2114af4ef4971cc652fd",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-c016435cb37d": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:52:09 · 天府（南斗 · 帝星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3129",
+      "line": 310,
+      "entryHash": "c016435cb37dcd8c79c939bd37557d2909b5d0ddce2759cadf4cbd5cb2451d7a",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-8db8cd5a6e79": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:01:36 · 贪狼（北斗 · 桃花/财气） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=96",
+      "line": 1171,
+      "entryHash": "8db8cd5a6e79fd4f98a3427eb4ad43365a59a8898704f1a17e8d2cdb17f73e53",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-1898b488b361": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:57:31 · 天相（南斗 · 印星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3451",
+      "line": 323,
+      "entryHash": "1898b488b361266d1f8d0ff879a80490413dfd4b50c25f4459fd4d540d1f322b",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-db190cee8e69": {
+      "kind": "transcript",
+      "label": "《天纪》P17 00:49:12 · 天梁（南斗 · 阴贵星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=17&t=2952",
+      "line": 1151,
+      "entryHash": "db190cee8e69798c71ade713b37330d93188f78ccc17d1be0f2114df9c66f690",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ddfc750a3508": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:27:34 · 武曲（北斗 · 财星/武官星） / 武曲在职业",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=1654",
+      "line": 671,
+      "entryHash": "ddfc750a3508dbd71f43938d20c2a6bf2a6482fae6aea73b4be03854452a6b8c",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-66e76c7fac11": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:51:42 · 天府（南斗 · 帝星） / 天府入武",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3102",
+      "line": 308,
+      "entryHash": "66e76c7fac11997b8551da4802044af3408352d8da1198d4900dc0247e1a0127",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ce2f5ba92b22": {
+      "kind": "transcript",
+      "label": "《天纪》P23 00:05:25 · 官禄宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=23&t=325",
+      "line": 1436,
+      "entryHash": "ce2f5ba92b22e4eeb259ca0ed31f1562bb5c69a1f2076a1f0d160280c0acf5cd",
+      "note": "已按裁决改正：身官→身宫",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-95e26ef43639": {
+      "kind": "transcript",
+      "label": "《天纪》P23 00:29:40 · 贪狼（北斗 · 桃花/财气） / 午宫为武官星",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=23&t=1780",
+      "line": 1494,
+      "entryHash": "95e26ef4363917bca548b2b71c6a10074784dd0d2e87720a945f0d79c4715816",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-58d59b7cf660": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:00:46 · 破军（北斗 · 杀星） / 英星入庙",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=46",
+      "line": 1166,
+      "entryHash": "58d59b7cf660977259a49631b8a141c99b3ac94eb52636cfbc59ef4c23331c21",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-cc1c2361fc67": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:10:05 · 官禄宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=605",
+      "line": 481,
+      "entryHash": "cc1c2361fc6734671aef20fe2f171b809434bf93331eb299b76e21f6ab907abc",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-15cb49690f75": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:10:34 · 官禄宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=634",
+      "line": 482,
+      "entryHash": "15cb49690f75206e9cf8f040a5665b96ec35246563301a1558f92251703e0a7e",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-f098c7f5243e": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:15:41 · 一、必定成格（吉格） / 机月同梁",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=941",
+      "line": 1653,
+      "entryHash": "f098c7f5243e2705af74a0b2d8fce7203dd3aa8aa5f5c45987c5720d26a190f2",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-d831f2dd0ff4": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:15:51 · 五、化禄 · 主财禄、家业 / 5.2 化禄 = 后天发展、做事业",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=951",
+      "line": 1654,
+      "entryHash": "d831f2dd0ff494e41f6f292cf1587d3eba42fee9cd6da5d3efdaf3e88b97440b",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-5d404ac34819": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:54:50 · 天梁（南斗 · 阴贵星） / 食神",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=3290",
+      "line": 316,
+      "entryHash": "5d404ac3481983fd8db6c1c8fb28cd02869d5f3438d21ebf1698dd6011dc4e5f",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-808a086c0d57": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:09:49 · 官禄宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=589",
+      "line": 480,
+      "entryHash": "808a086c0d5718042017d28d8fb6613b3022ad3393d6e977195d0d934490ce05",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-a1542a64d7aa": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:07:08 · 紫微（北斗 · 帝星） / 必需辅弼",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=428",
+      "line": 619,
+      "entryHash": "a1542a64d7aab37656b4527b214852e1ea47551f98e414a81b091aff51fb55d4",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-fb836c3f3151": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:08:02 · 紫微（北斗 · 帝星） / 必需辅弼",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=482",
+      "line": 622,
+      "entryHash": "fb836c3f3151c0e7c07930c042af2c9b1ec000b65fb2a357f47ee8ffe2e1ba58",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-e065eb6cd3da": {
+      "kind": "transcript",
+      "label": "《天纪》P21 00:32:57 · 夫妻宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=21&t=1977",
+      "line": 1392,
+      "entryHash": "e065eb6cd3da62c6407b48d49168945a8aefbfcb0044ed0b13525961d79ed3a4",
+      "note": "cleaned〕〔已按裁决改正：夫妻官→夫妻宫",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-5e88597a5b2b": {
+      "kind": "transcript",
+      "label": "《天纪》P15 00:21:52 · 夫妻宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=15&t=1312",
+      "line": 947,
+      "entryHash": "5e88597a5b2b4efd84ffe7167ab8c738f6ed9674195f0a72d48e4dbc58dcacdf",
+      "note": "cleaned〕〔字幕疑误：夫妻官→夫妻宫；自门→巨门",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-6c9217f37a05": {
+      "kind": "transcript",
+      "label": "《天纪》P15 00:22:17 · 巨门（北斗 · 暗星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=15&t=1337",
+      "line": 949,
+      "entryHash": "6c9217f37a0593a813e87e43c88c3126d1182d31ecbddac2f4bd920dfbeb5e6e",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-7fff86021cbe": {
+      "kind": "transcript",
+      "label": "《天纪》P15 00:22:30 · 天同（南斗 · 福星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=15&t=1350",
+      "line": 950,
+      "entryHash": "7fff86021cbe74a45f457c8f38df6e8fd46d21ef9e5e9617291b4c1d6b1ab48a",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-ec361d9e56d1": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:03:21 · 夫妻宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=201",
+      "line": 1629,
+      "entryHash": "ec361d9e56d1537fa9a8064127ae3021a40daa9ec1794f42ba1ce998d43bd0d7",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-de3c11fc5582": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:03:37 · 天府（南斗 · 帝星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=217",
+      "line": 1630,
+      "entryHash": "de3c11fc55823cd1c08a5dfd7b9ab54048a2dfd5eeda5cc225dc6a1e4fefbb61",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-87eb2be1a645": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:29:42 · 贪狼（北斗 · 桃花/财气） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=1782",
+      "line": 1244,
+      "entryHash": "87eb2be1a645f38bb4c8acf168abfdec443b6ef1c398f7f65e548d7aefd3d31c",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-208ab812d18f": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:48:06 · 夫妻宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=2886",
+      "line": 717,
+      "entryHash": "208ab812d18fbc096fb117c7fef9bb2921c79bf8fe9dee65855291759d5ff4ff",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-56e0073c2037": {
+      "kind": "transcript",
+      "label": "《天纪》P25 00:38:31 · 破军（北斗 · 杀星） / 在夫妻",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=25&t=2311",
+      "line": 1609,
+      "entryHash": "56e0073c2037dd1d60eaa3065e7d2c6d32a9ec4eac43d10d08761cdc65d8ea8c",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-9225f612c6a2": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:55:24 · 破军（北斗 · 杀星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=3324",
+      "line": 885,
+      "entryHash": "9225f612c6a2786a3552014375fe0aee89619f9e0c509e22ff8d3a2ae32e6d83",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-a6272c9565da": {
+      "kind": "transcript",
+      "label": "《天纪》P29 00:12:46 · 天梁（南斗 · 阴贵星） / 天梁在午宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=29&t=766",
+      "line": 1742,
+      "entryHash": "a6272c9565daa9b86753a78ab205f871d983886d8aa3c18b8abff38fa1b1d027",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-eac1c3f31126": {
+      "kind": "transcript",
+      "label": "《天纪》P25 00:03:13 · 夫妻宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=25&t=193",
+      "line": 1531,
+      "entryHash": "eac1c3f31126a661b9f20b0cf0e1a07760a63830967689fc22fe3c21b9b7486e",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-d2bc346dcccc": {
+      "kind": "transcript",
+      "label": "《天纪》P21 00:04:02 · 财帛宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=21&t=242",
+      "line": 1320,
+      "entryHash": "d2bc346dcccc41c786b0014b28d1dc1f2070d541636852f1a888fb126d8d436a",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-f2172c59b85f": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:37:18 · 太阳（中天 · 主贵星） / 横财 vs 正财",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=2238",
+      "line": 282,
+      "entryHash": "f2172c59b85f94c1eeee0dfd27c01b18031f5da12fe161789967dd480b742fc9",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-021e15c83e98": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:49:53 · 财帛宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=2993",
+      "line": 722,
+      "entryHash": "021e15c83e981eaab47ae8a5d1a520a14d19193f2bb40e6f8d1d65afe93d5f80",
+      "note": "已按裁决改正：财宗→财帛",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-1970295f7bbd": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:50:26 · 财帛宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=3026",
+      "line": 724,
+      "entryHash": "1970295f7bbdc07b33aaa8fa7bdaad894eb995a9d073756b4dd0035e7bd94f28",
+      "note": "已按裁决改正：财宗→财帛",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-f20e3e4b5b58": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:19:29 · 财帛宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=1169",
+      "line": 1664,
+      "entryHash": "f20e3e4b5b58615014157a699c226ad4cad36f2963b0e1546cd476cf045ae17f",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-e8166c0351a7": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:14:43 · 财帛宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=883",
+      "line": 496,
+      "entryHash": "e8166c0351a7228992145de281c4d627f08e8544dd870c9c74945f85d9423c88",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-7b2a75ed8328": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:15:02 · 三、化科 · 主名声、考试、专业、才艺 / 3.1 核心定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=902",
+      "line": 497,
+      "entryHash": "7b2a75ed83281b2acd4547f56b68e406b977e9dd4d2a6b337ec571cfc705d93f",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-7d86eb275040": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:16:00 · 财帛宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=960",
+      "line": 503,
+      "entryHash": "7d86eb27504093604618be53a07978d061355b2e22d9d5244642d2d9654480fa",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-06b51df01eeb": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:17:07 · 紫微（北斗 · 帝星） / 紫微在子宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1027",
+      "line": 505,
+      "entryHash": "06b51df01eeb6808614da2ee33a7aadd6cf4dbe5062662cfbccee76352596554",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-cf908e3ca54f": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:17:14 · 紫微（北斗 · 帝星） / 必需辅弼",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1034",
+      "line": 506,
+      "entryHash": "cf908e3ca54f36745f8adee4093ae55f1d07cdf0f8cf2241fd51ab719718b6d5",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-b9a3e7bf3170": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:17:33 · 紫微（北斗 · 帝星） / 紫微在子宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1053",
+      "line": 508,
+      "entryHash": "b9a3e7bf31703f5f5345b0c6a324c05d3c84345d1609f050158bc1c52f7bc357",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-b3b6be842341": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:07:37 · 迁移宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=457",
+      "line": 620,
+      "entryHash": "b3b6be842341fa906760b8abce2314046f6cd3e4ebb8bafeae6b408c1ead748e",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-c73328b7acc3": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:28:06 · 仆役（交友）宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1686",
+      "line": 541,
+      "entryHash": "c73328b7acc36f136674f20e31a404673006301198d67723584c2829650ac668",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-559db483a711": {
+      "kind": "transcript",
+      "label": "《天纪》P19 00:12:46 · 仆役（交友）宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=19&t=766",
+      "line": 1206,
+      "entryHash": "559db483a711a67d10cd391f0a09c14de9ddd628c92659dd17eaf027a4a77f1e",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-e9d43e0c5257": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:27:17 · 仆役（交友）宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1637",
+      "line": 539,
+      "entryHash": "e9d43e0c525773ac2480bbac47e77f492da8295126d781171574c3b40333c6ec",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-608ad7623e86": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:27:52 · 仆役（交友）宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1672",
+      "line": 540,
+      "entryHash": "608ad7623e86be57299acf463be68f0a4281266ec1d78f83c9285f8faa4b6bcc",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-a5047e6b63e6": {
+      "kind": "transcript",
+      "label": "《天纪》P17 00:52:12 · 武曲（北斗 · 财星/武官星） / 武曲在职业",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=17&t=3132",
+      "line": 1160,
+      "entryHash": "a5047e6b63e6d01642e182f6ab7dccdc92fc20a97843387d71c8efcbd443af58",
+      "note": "cleaned〕〔已按裁决改正：田宅官→田宅宫",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-9abd772a4cf1": {
+      "kind": "transcript",
+      "label": "《天纪》P17 00:52:27 · 三方四正与对宫借星",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=17&t=3147",
+      "line": 1161,
+      "entryHash": "9abd772a4cf1aa5cec9b247f46ecd9825d0aa63910f27128968822d6bff28a1a",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-a8928269934a": {
+      "kind": "transcript",
+      "label": "《天纪》P25 00:36:14 · 巨门（北斗 · 暗星） / 定性",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=25&t=2174",
+      "line": 1601,
+      "entryHash": "a8928269934afbc1c245091d0d8ee8f253b7a06ef8609d7000f4bd0824c950e2",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-c6aacea670ee": {
+      "kind": "transcript",
+      "label": "《天纪》P23 00:32:09 · 兄弟宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=23&t=1929",
+      "line": 1501,
+      "entryHash": "c6aacea670eef32dff51da50ee8efc47e691d6345f0c390ce4a9dbb79beeac04",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-e8e598a77936": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:23:59 · 父母宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=1439",
+      "line": 1681,
+      "entryHash": "e8e598a77936377db3faeed8a228363b0137127f4a690d6f8e1d0ae7968bd759",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-3a20543b70fe": {
+      "kind": "transcript",
+      "label": "《天纪》P27 00:24:06 · 宫性与流年",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=27&t=1446",
+      "line": 1682,
+      "entryHash": "3a20543b70feb0d1fd05c3161320b4f1486f402d4f434c27250416f294ba4b09",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-e9732153239e": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:19:13 · 太阳（中天 · 主贵星） / 太阳与女命",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=1153",
+      "line": 513,
+      "entryHash": "e9732153239e891498131a0e4ce9ba37506a05ad5d2eed3d27820c7e9600f707",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-33aefdb129ba": {
+      "kind": "transcript",
+      "label": "《天纪》P11 00:47:57 · 父母宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=11&t=2877",
+      "line": 716,
+      "entryHash": "33aefdb129ba9b9743e67b1cfc20da427e2cd7f9aa75e614c80fff1937680a9b",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-9deeab669c0d": {
+      "kind": "transcript",
+      "label": "《天纪》P17 00:05:53 · 父母宫",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=17&t=353",
+      "line": 1049,
+      "entryHash": "9deeab669c0d23522e8228c41081388a2c6a68fe04a71435e7a1acb25fe3e52b",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-492a240cf59b": {
+      "kind": "transcript",
+      "label": "《天纪》P5 00:30:49 · 福德宫（女命极重要！）",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=5&t=1849",
+      "line": 266,
+      "entryHash": "492a240cf59b0220edecc416926806418a83cef52b9580e1d1eca0d3d7f088ac",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-d9334df68686": {
+      "kind": "transcript",
+      "label": "《天纪》P13 00:06:58 · 福德宫（女命极重要！）",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=13&t=418",
+      "line": 767,
+      "entryHash": "d9334df68686ad75e4fd51cbc5182b0145046037963aa3fdef88e8cd0d3dc75c",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-cf26b1e4f756": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:13:53 · 七杀（南斗 · 杀星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=833",
+      "line": 493,
+      "entryHash": "cf26b1e4f7568279dc481e496ce38776fc610d0b7170916595f1689a2c476b30",
+      "note": "",
+      "reviewLevel": "transcript-compared"
+    },
+    "tj-a1e19df68fcc": {
+      "kind": "transcript",
+      "label": "《天纪》P9 00:14:19 · 七杀（南斗 · 杀星） / 性情",
+      "url": "https://www.bilibili.com/video/BV1KJsLekEfA?p=9&t=859",
+      "line": 494,
+      "entryHash": "a1e19df68fccd53ca9b0a670f4fe99b5b46df0b311fd74f2bd2caff6bd0ae437",
+      "note": "cleaned",
+      "reviewLevel": "transcript-compared"
+    }
+  },
+  "pages": {
+    "紫微/overview": {
+      "heading": "紫微星：帝星与辅弼条件",
+      "scope": "星性总论；辅弼段明确讨论命宫。",
+      "correction": "删去“天生统御力、管理高位”等扩写，保留帝星与辅弼的课程语境。",
+      "claims": [
+        {
+          "text": "课程将紫微称为北斗的帝星，并以官带说明其传统含义。",
+          "sources": [
+            "tj-6cdd376e31a4",
+            "tj-cc0a66fc853a",
+            "tj-641880166d93"
+          ]
+        },
+        {
+          "text": "论命坐紫微时，课程区分周围有左辅、右弼与无辅弼两种情形；无辅弼的段落着重讲孤单与偏好独处。",
+          "sources": [
+            "tj-73db636ce59c",
+            "tj-631db05e2350"
+          ]
+        }
+      ]
+    },
+    "天机/overview": {
+      "heading": "天机星：文官带与反应特点",
+      "scope": "星性总论；反应特点出自天机坐命段。",
+      "correction": "删去跨界、研发及无条件机月同梁职业结论。",
+      "claims": [
+        {
+          "text": "课程把天机归入文官带，列举公务人员、教师及银行职员作为说明。",
+          "sources": [
+            "tj-ac543d595ff5",
+            "tj-910b87cffbf5",
+            "tj-4f98d14d82c2"
+          ]
+        },
+        {
+          "text": "讲天机坐命时，转录文本提到反应快、能随机应变和聪明。",
+          "sources": [
+            "tj-18aa43309444"
+          ]
+        }
+      ]
+    },
+    "太阳/overview": {
+      "heading": "太阳星：官禄、财帛与明暗语境",
+      "scope": "星性总论及宫位差别；不把地支时象等同出生时辰。",
+      "correction": "删除统一的寅至未、申至丑庙陷划分以及名利保证。",
+      "claims": [
+        {
+          "text": "课程以武官带介绍太阳，并分别说明：落财帛宫时从财的角度解释，落官禄宫时从官的角度解释。",
+          "sources": [
+            "tj-f9effb463087",
+            "tj-8c8b118a5d86"
+          ]
+        },
+        {
+          "text": "课程用白天与夜间的太阳说明明暗差别，在另一段以午宫作为太阳当头的例子。",
+          "sources": [
+            "tj-5afda6ea058c",
+            "tj-5f0677b12881"
+          ]
+        }
+      ]
+    },
+    "武曲/overview": {
+      "heading": "武曲星：财星与刚强星性",
+      "scope": "星性总论，不承诺财富或职业结果。",
+      "correction": "撤下“一生不缺赚钱门路”等保证，不把现代金融职业清单当课程原话。",
+      "claims": [
+        {
+          "text": "课程介绍武曲时同时谈到武官与财星两层意义。",
+          "sources": [
+            "tj-bf87f385fb4f"
+          ]
+        },
+        {
+          "text": "性情部分将武曲的急烈反应描述为发作后较快过去，另一处以刚强、坚持说明其性情。",
+          "sources": [
+            "tj-bf87f385fb4f",
+            "tj-86847d0e06e5"
+          ]
+        }
+      ]
+    },
+    "天同/overview": {
+      "heading": "天同星：人和与合作语境",
+      "scope": "星性与运限语境，不能直接推广为所有宫位的单星断语。",
+      "correction": "删除“微煞激发”的伪直接引文，以及艺术天赋、懒散和一生享福等无对应扩写。",
+      "claims": [
+        {
+          "text": "课程介绍天同时，重点是人和，并用当年合作与十年运中的创业作例子。",
+          "sources": [
+            "tj-95be645f20bd",
+            "tj-97d6070cee38",
+            "tj-48559e769659"
+          ]
+        },
+        {
+          "text": "相邻段落同时提及事情能否成就还涉及天时与流年化禄。",
+          "sources": [
+            "tj-8f6fe59fbc34"
+          ]
+        }
+      ]
+    },
+    "廉贞/overview": {
+      "heading": "廉贞星：次桃花、武官与组合差别",
+      "scope": "星性与同宫组合；古籍和课程分别列源。",
+      "correction": "删除“廉府在子午”错误及心理、品牌职业扩写。",
+      "claims": [
+        {
+          "text": "课程将廉贞称为次桃花，同时讨论它的武官含义。",
+          "sources": [
+            "tj-a87b482e5ad1",
+            "tj-b0fd80f229e2"
+          ]
+        },
+        {
+          "text": "《紫微斗数全书》卷二的电子录文将廉贞与天相同度列在子午，将廉贞与天府同度列在辰戌。",
+          "sources": [
+            "qs-2-lianzhen"
+          ]
+        }
+      ]
+    },
+    "天府/overview": {
+      "heading": "天府星：南斗星君与解厄说法的差异",
+      "scope": "课程与古籍有不同表述，不能合成一个无条件结论。",
+      "correction": "撤下拼接的古籍直接引文，分开记录书面说法、课程否定及后续条件。",
+      "claims": [
+        {
+          "text": "课程把天府称为南斗星君，并在职业举例中提到公务人员和教员。",
+          "sources": [
+            "tj-ebb20160683f",
+            "tj-b01b1d1a6bc2"
+          ]
+        },
+        {
+          "text": "早段课程否定天府单星的解厄作用，后段则为天府会三台、八座补充了条件。",
+          "sources": [
+            "tj-ae97f1fde65f",
+            "tj-3f0829e1e18c",
+            "tj-4d4a1c7e3d52"
+          ]
+        },
+        {
+          "text": "《紫微斗数全书》卷一的电子录文则把天府写作延寿解厄之星，这与课程早段的解释不同。",
+          "sources": [
+            "qs-1-tianfu"
+          ]
+        }
+      ]
+    },
+    "太阴/overview": {
+      "heading": "太阴星：月亮时象与文官语境",
+      "scope": "星性总论；课程用宫位对应时象说明亮度。",
+      "correction": "撤下粗略的半圈庙陷表、家庭美满保证与夜生一律吉的扩写。",
+      "claims": [
+        {
+          "text": "课程用月亮说明太阴，列举亥、子、丑这些夜间时象；另一段把太阴在子宫称为水澄桂萼。",
+          "sources": [
+            "tj-8cb510c9a7a7",
+            "tj-9bd21268b60c"
+          ]
+        },
+        {
+          "text": "职业介绍把太阴归在文官带，以公务或为人工作取得固定薪资说明正财。",
+          "sources": [
+            "tj-37e9236445cc"
+          ]
+        }
+      ]
+    },
+    "贪狼/overview": {
+      "heading": "贪狼星：桃花与午宫武官的区别",
+      "scope": "星性解释随宫位语境而变。",
+      "correction": "撤下把所有贪狼都写成社交、才艺、财富优势的扩写。",
+      "claims": [
+        {
+          "text": "课程先以主桃花以及酒、财等象征介绍贪狼。",
+          "sources": [
+            "tj-63e597354d5c"
+          ]
+        },
+        {
+          "text": "后续明确区分亥子水宫的桃花语境与午宫的武官语境，提醒不要见到贪狼就一概判作桃花。",
+          "sources": [
+            "tj-edbb50534232",
+            "tj-299c724e8d19",
+            "tj-8910d5b5ee8e"
+          ]
+        }
+      ]
+    },
+    "巨门/overview": {
+      "heading": "巨门星：口舌与庙陷条件",
+      "scope": "星性总论，不据此预测现实官司。",
+      "correction": "撤下“失辉化忌必纠纷”和无条件律师、研究能力等推演。",
+      "claims": [
+        {
+          "text": "课程把巨门与口舌、是非联系起来，并在同一段区分庙旺时的口才解释与落陷时的负面解释。",
+          "sources": [
+            "tj-b0acc542df56"
+          ]
+        },
+        {
+          "text": "谈豪门宅地的例子另有巨门入庙、双禄及禄马交驰等条件。",
+          "sources": [
+            "tj-272aaa07b21b",
+            "tj-0f6642851966"
+          ]
+        }
+      ]
+    },
+    "天相/overview": {
+      "heading": "天相星：辅佐人才的课程语境",
+      "scope": "天相入命与府相会命属于不同论述层次。",
+      "correction": "删除财荫夹印、刑忌夹印的简化公式和管理地位保证。",
+      "claims": [
+        {
+          "text": "课程以宰相比喻天相，讲天相入命时举助理、秘书和师爷说明辅佐角色。",
+          "sources": [
+            "tj-f18a578e6b33"
+          ]
+        },
+        {
+          "text": "另一段把天府、天相直接会到命宫称为府相会命，并再次用秘书、助理和副将说明。",
+          "sources": [
+            "tj-7411f3cfcb55",
+            "tj-8cc6a86eda2c"
+          ]
+        }
+      ]
+    },
+    "天梁/overview": {
+      "heading": "天梁星：文武与午宫条件",
+      "scope": "星性总论与天梁在午宫坐命的特定例子分开阅读。",
+      "correction": "撤下单星长寿、医药天赋、化禄必惹是非等扩写。",
+      "claims": [
+        {
+          "text": "课程介绍天梁时说明文职与武职两种语境都存在。",
+          "sources": [
+            "tj-b67a41d1225b"
+          ]
+        },
+        {
+          "text": "有关武官权位的后续例子明确以天梁在午宫、并且命宫在午为条件。",
+          "sources": [
+            "tj-602e1ade9818",
+            "tj-86142a54c3f6"
+          ]
+        }
+      ]
+    },
+    "七杀/overview": {
+      "heading": "七杀星：急刚星性与将星条件",
+      "scope": "星性总论与午宫、身宫等条件不能混同。",
+      "correction": "撤下创业成功和中年威权保证，避免把身宫说法当命宫通则。",
+      "claims": [
+        {
+          "text": "课程在七杀入命及性情段落中，提到性急与刚烈。",
+          "sources": [
+            "tj-85a9dba73435",
+            "tj-ab1d97b82e02"
+          ]
+        },
+        {
+          "text": "将星的例子明确提到命宫七杀在午，并另讨论流年会将星的情况。",
+          "sources": [
+            "tj-04369a9a1ab6",
+            "tj-76dc31b5f471"
+          ]
+        }
+      ]
+    },
+    "破军/overview": {
+      "heading": "破军星：孤僻星性与英星入庙",
+      "scope": "星性总论与子午成格条件分别记录。",
+      "correction": "撤下把破军等同互联网创新、必然先破后立发财的解释。",
+      "claims": [
+        {
+          "text": "课程描述破军性情时，着重谈孤僻、自守及不重钱财。",
+          "sources": [
+            "tj-0494516d948d",
+            "tj-25b939063c32"
+          ]
+        },
+        {
+          "text": "另一段将破军在子、午称为英星入庙，并在该条件下讨论武官语境。",
+          "sources": [
+            "tj-6b0e318a1b32",
+            "tj-5432baf19f8f"
+          ]
+        }
+      ]
+    },
+    "紫微/personality": {
+      "heading": "紫微星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "无辅弼条件不可省略；不能改写成所有紫微坐命都自尊强或有统御力。",
+      "claims": [
+        {
+          "text": "课程先写紫微不轻易开口，再把命宫紫微无辅弼的情形描述为厚道而偏好独处。",
+          "sources": [
+            "tj-107aea4d3082",
+            "tj-73db636ce59c",
+            "tj-631db05e2350"
+          ]
+        }
+      ]
+    },
+    "天机/personality": {
+      "heading": "天机星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "未把这些词扩写为共情力、拖延、心理疾病或特定技术天赋。",
+      "claims": [
+        {
+          "text": "天机坐命段落的性情词集中在反应快、随机应变与聪明。",
+          "sources": [
+            "tj-18aa43309444"
+          ]
+        }
+      ]
+    },
+    "太阳/personality": {
+      "heading": "太阳星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "前一个例子有太阳在卯宫的条件，不据此给所有人贴上热心公益或自我牺牲标签。",
+      "claims": [
+        {
+          "text": "课程以太阳在卯宫的女命举例说明热情，另在武曲段把太阳作为急烈而较快平息的性情对照。",
+          "sources": [
+            "tj-bf87f385fb4f",
+            "tj-97360eef6d3e"
+          ]
+        }
+      ]
+    },
+    "武曲/personality": {
+      "heading": "武曲星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "守诺、工作狂与亲密关系中的具体行为未在这些条目得到完整支持。",
+      "claims": [
+        {
+          "text": "课程用急烈而较快过去、刚强以及坚持来描述武曲的性情。",
+          "sources": [
+            "tj-bf87f385fb4f",
+            "tj-86847d0e06e5"
+          ]
+        }
+      ]
+    },
+    "天府/personality": {
+      "heading": "天府星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "不能把温和直接改写为人品可靠、绝不冒险或心理稳定。",
+      "claims": [
+        {
+          "text": "课程称天府性情温和，同时明确提醒温和不等于品行好，并补充其心思较多的描述。",
+          "sources": [
+            "tj-26a2f5faa694",
+            "tj-c016435cb37d"
+          ]
+        }
+      ]
+    },
+    "贪狼/personality": {
+      "heading": "贪狼星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "这里只记录课程措辞的含义，不补写饭局中心、快速变现等现代画像。",
+      "claims": [
+        {
+          "text": "在比较杀破狼性情的段落，贪狼被描述为较犟、容易意气用事。",
+          "sources": [
+            "tj-8db8cd5a6e79"
+          ]
+        }
+      ]
+    },
+    "巨门/personality": {
+      "heading": "巨门星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "没有把它延伸成固定的怀疑型人格、研究深度或内心讲义气。",
+      "claims": [
+        {
+          "text": "巨门的口才解释在这段课程中附有庙旺条件。",
+          "sources": [
+            "tj-b0acc542df56"
+          ]
+        }
+      ]
+    },
+    "天相/personality": {
+      "heading": "天相星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "不能据此保证现实品德，也未保留完美主义、委屈自己等心理推测。",
+      "claims": [
+        {
+          "text": "课程描述天相性情时，使用厚道、谦和、温和等意思。",
+          "sources": [
+            "tj-1898b488b361"
+          ]
+        }
+      ]
+    },
+    "天梁/personality": {
+      "heading": "天梁星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "没有把它扩写为必然照顾弱者、喜欢说教或具有医疗天赋。",
+      "claims": [
+        {
+          "text": "天梁坐命的这一段被描述为正派、厚道，同时个性较强。",
+          "sources": [
+            "tj-db190cee8e69"
+          ]
+        }
+      ]
+    },
+    "七杀/personality": {
+      "heading": "七杀星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "不据此保证担当、行动力或成功，也不把性急转写成伤害风险。",
+      "claims": [
+        {
+          "text": "比较杀破狼性情的段落，将七杀描述为性急、刚烈。",
+          "sources": [
+            "tj-ab1d97b82e02"
+          ]
+        }
+      ]
+    },
+    "破军/personality": {
+      "heading": "破军星的性格：课程描述与边界",
+      "scope": "传统星性描述，不是人格测评。",
+      "correction": "没有把孤僻和自守改写成创造力极强、必然颠覆行业。",
+      "claims": [
+        {
+          "text": "课程将破军描述为孤僻、自守、不重钱财；其中自守解释为不轻易改变自己的做法。",
+          "sources": [
+            "tj-0494516d948d",
+            "tj-25b939063c32"
+          ]
+        }
+      ]
+    },
+    "天机/career": {
+      "heading": "天机星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "这是星性总论的职业举例，不是天机单独入官禄宫就适合所有研发、软件或咨询岗位的证明。",
+      "claims": [
+        {
+          "text": "天机的文官带例子包含公务人员、教师和银行职员。",
+          "sources": [
+            "tj-910b87cffbf5",
+            "tj-4f98d14d82c2"
+          ]
+        }
+      ]
+    },
+    "武曲/career": {
+      "heading": "武曲星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "这些是课程中的职业分类，不等于现代就业测评，也不能据此认定金融、供应链等行业一定有利。",
+      "claims": [
+        {
+          "text": "课程以武官介绍武曲，并在相关职业举例中提到军人、警察、法官、外交官。",
+          "sources": [
+            "tj-bf87f385fb4f",
+            "tj-ddfc750a3508"
+          ]
+        }
+      ]
+    },
+    "廉贞/career": {
+      "heading": "廉贞星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "没有据此扩大成公关、设计、品牌和精密制造等职业清单。",
+      "claims": [
+        {
+          "text": "廉贞的职业语境在课程中包含武官，以及带兵赴边疆的举例。",
+          "sources": [
+            "tj-a87b482e5ad1",
+            "tj-b0fd80f229e2"
+          ]
+        }
+      ]
+    },
+    "天府/career": {
+      "heading": "天府星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "这是天府坐命的举例，不是天府入官禄宫必任 CFO、COO 或管理高位的依据。",
+      "claims": [
+        {
+          "text": "课程把天府坐命与公务、教学作联系，并把转作武官作为不同的语境讨论。",
+          "sources": [
+            "tj-b01b1d1a6bc2",
+            "tj-66e76c7fac11"
+          ]
+        }
+      ]
+    },
+    "太阴/career": {
+      "heading": "太阴星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "保留星性总论与事业宫案例的区别，不能把太阴固定写成只适合幕后财务或不适合经商。",
+      "claims": [
+        {
+          "text": "课程先用文官和固定薪资说明太阴，另一个事业宫案例又区分太阴有无化禄的情况。",
+          "sources": [
+            "tj-37e9236445cc",
+            "tj-ce2f5ba92b22"
+          ]
+        }
+      ]
+    },
+    "贪狼/career": {
+      "heading": "贪狼星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "午宫和会天马是原段条件，不可改写成所有贪狼都适合营销娱乐或一定能做热项目。",
+      "claims": [
+        {
+          "text": "课程把午宫贪狼解释为武官，并在另一例子中连同天马讨论职务调动。",
+          "sources": [
+            "tj-299c724e8d19",
+            "tj-95e26ef43639"
+          ]
+        }
+      ]
+    },
+    "天相/career": {
+      "heading": "天相星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "这两种语境均不等于天相独入官禄宫的通则，不保证职位、收入或行业优势。",
+      "claims": [
+        {
+          "text": "天相入命的职业比喻是辅佐角色；府相会命的例子则进一步列出秘书、助理、副将。",
+          "sources": [
+            "tj-f18a578e6b33",
+            "tj-7411f3cfcb55",
+            "tj-8cc6a86eda2c"
+          ]
+        }
+      ]
+    },
+    "破军/career": {
+      "heading": "破军星与事业：课程中的职业举例",
+      "scope": "本页讨论课程职业语境，不是单星官禄宫断语。",
+      "correction": "保留子午成格条件；删除互联网、品牌、危机重组等无对应职业扩写。",
+      "claims": [
+        {
+          "text": "课程把子午破军的英星入庙与武官联系起来，并列举军人、警察、法官、外交官。",
+          "sources": [
+            "tj-6b0e318a1b32",
+            "tj-5432baf19f8f",
+            "tj-58d59b7cf660"
+          ]
+        }
+      ]
+    },
+    "紫微/career": {
+      "heading": "紫微在官禄宫：紫微七杀的条件",
+      "scope": "明确为紫微七杀同宫的课程例子。",
+      "correction": "删除单颗紫微即可极顺晋升的保证。",
+      "claims": [
+        {
+          "text": "课程谈官禄宫的权时，把紫微与七杀同宫列为一种组合，并将其与只有七杀、擎羊而无化权的例子区别开。",
+          "sources": [
+            "tj-cc1c2361fc67",
+            "tj-15cb49690f75"
+          ]
+        }
+      ]
+    },
+    "太阳/career": {
+      "heading": "太阳在官禄宫：宫位语义的区别",
+      "scope": "宫位含义的课程说明。",
+      "correction": "撤下能源、互联网与管理晋升等未见对应的扩写。",
+      "claims": [
+        {
+          "text": "课程明确说太阳在财帛宫从财解释、在官禄宫从官解释，前段的武官举例包括军人、警察、法官与外交官。",
+          "sources": [
+            "tj-f9effb463087",
+            "tj-8c8b118a5d86"
+          ]
+        }
+      ]
+    },
+    "天同/career": {
+      "heading": "天同与事业：人和及机月同梁语境",
+      "scope": "一个是运限例子，一个是四星组合，均不可化为单星官禄通则。",
+      "correction": "删除越老越吃香及艺术设计等无对应扩写。",
+      "claims": [
+        {
+          "text": "课程借十年运中的天同说明创业的人和条件。",
+          "sources": [
+            "tj-48559e769659"
+          ]
+        },
+        {
+          "text": "后面的机月同梁案例，把这一组合与公家单位、学校及固定薪资联系起来，随后又补充会科权禄时做生意的情况。",
+          "sources": [
+            "tj-f098c7f5243e",
+            "tj-d831f2dd0ff4"
+          ]
+        }
+      ]
+    },
+    "天梁/career": {
+      "heading": "天梁在官禄宫：食神举例与文武分类",
+      "scope": "宫位举例与星性总论分别记录。",
+      "correction": "撤下医学、建筑、审计等职业保证。",
+      "claims": [
+        {
+          "text": "课程以天梁在官禄宫作食神的例子，将其解释为任职期间应酬交际多。",
+          "sources": [
+            "tj-5d404ac34819"
+          ]
+        },
+        {
+          "text": "星性总论另说天梁既有文职也有武职语境。",
+          "sources": [
+            "tj-b67a41d1225b"
+          ]
+        }
+      ]
+    },
+    "七杀/career": {
+      "heading": "七杀与官禄：不能省略同宫与化权条件",
+      "scope": "对比课程中的紫微七杀与七杀擎羊例子。",
+      "correction": "撤下“七杀官禄必创业立功”的无条件结论。",
+      "claims": [
+        {
+          "text": "官禄宫段落先列七杀、擎羊的案例，再把紫微七杀同宫和官禄化权作为不同情形讨论。",
+          "sources": [
+            "tj-808a086c0d57",
+            "tj-cc1c2361fc67",
+            "tj-15cb49690f75"
+          ]
+        }
+      ]
+    },
+    "紫微/love": {
+      "heading": "紫微在夫妻宫：辅弼条件",
+      "scope": "课程对宫位转换的举例，不保证任何人的配偶条件。",
+      "correction": "删除晚婚、配偶家世、性别分工及破军必波折的扩写。",
+      "claims": [
+        {
+          "text": "课程先谈紫微破军会左辅、右弼，再假设该组合落夫妻宫，用另一半优秀说明其含义。",
+          "sources": [
+            "tj-a1542a64d7aa",
+            "tj-fb836c3f3151"
+          ]
+        }
+      ]
+    },
+    "廉贞/love": {
+      "heading": "廉贞在夫妻宫：区分廉贪、廉破与廉杀",
+      "scope": "记录课程中的组合区别，不把生离死别断语作为个人结局预测。",
+      "correction": "原稿把廉贞七杀并入同一负面婚姻结论，与所引段落不符；廉府子午也改为辰戌。",
+      "claims": [
+        {
+          "text": "这一段课程把夫妻宫的廉贞贪狼、廉贞破军与廉贞七杀作了明确区别，不能把三组组合写成同一种结论。",
+          "sources": [
+            "tj-e065eb6cd3da"
+          ]
+        },
+        {
+          "text": "《紫微斗数全书》卷二电子录文记载廉贞与天府同度在辰戌，子午同度的是天相。",
+          "sources": [
+            "qs-2-lianzhen"
+          ]
+        }
+      ]
+    },
+    "天同/love": {
+      "heading": "天同在夫妻宫：天同巨门案例",
+      "scope": "只记录天同、巨门及会星的案例语境。",
+      "correction": "撤下年龄差、晚婚与配偶容貌保证。",
+      "claims": [
+        {
+          "text": "案例先列夫妻宫的天同、巨门、天钺及昌曲会星，随后以巨门说明争执、以天同说明人和，论述并非只看一颗天同。",
+          "sources": [
+            "tj-5e88597a5b2b",
+            "tj-6c9217f37a05",
+            "tj-7fff86021cbe"
+          ]
+        }
+      ]
+    },
+    "天府/love": {
+      "heading": "天府在夫妻宫：会天马的案例",
+      "scope": "案例中的组合不能代替单星通则。",
+      "correction": "撤下“生离不死别”和婚姻必稳的保证。",
+      "claims": [
+        {
+          "text": "该案例明确是夫妻宫天府带天马，接下来的解释分别把奔波勤勉归于天马，把厚道、善理财归于天府。",
+          "sources": [
+            "tj-ec361d9e56d1",
+            "tj-de3c11fc5582"
+          ]
+        }
+      ]
+    },
+    "贪狼/love": {
+      "heading": "贪狼在夫妻宫：不能一概而论的提醒",
+      "scope": "记录课程对年龄断语本身的限制。",
+      "correction": "撤下晚婚必稳及午宫贪狼婚姻必稳的说法。",
+      "claims": [
+        {
+          "text": "课程提到相书中贪狼在夫妻宫、妻年长的说法后，随即提醒这只是一个状况，不能据此作永远如此的判断。",
+          "sources": [
+            "tj-87eb2be1a645"
+          ]
+        }
+      ]
+    },
+    "巨门/love": {
+      "heading": "巨门在夫妻宫：会星如何改变论述",
+      "scope": "天同巨门案例，不预测实际关系结局。",
+      "correction": "撤下得太阳或化禄便一定因配偶得财的扩写。",
+      "claims": [
+        {
+          "text": "课程在天同、巨门同见于夫妻宫的案例中，把巨门的争执语义与天同的人和语义同时考虑，并先交代天钺、昌曲等会星。",
+          "sources": [
+            "tj-5e88597a5b2b",
+            "tj-6c9217f37a05",
+            "tj-7fff86021cbe"
+          ]
+        }
+      ]
+    },
+    "太阳/love": {
+      "heading": "太阳在夫妻宫：落陷不等于一种结局",
+      "scope": "课程中的女命亥宫太阳落陷举例，有命相同参背景。",
+      "correction": "撤下笼统的落陷必婚变、晚婚方稳及年龄差通则。",
+      "claims": [
+        {
+          "text": "在亥宫太阳落陷的女命夫妻宫例子中，课程提醒不能只凭落陷就断死别，并举海员、船员聚少散多作另一解释。",
+          "sources": [
+            "tj-208ab812d18f"
+          ]
+        }
+      ]
+    },
+    "破军/love": {
+      "heading": "破军与婚姻：区分夫妻宫与坐命成格",
+      "scope": "课程分散在不同段落，不能拼成一条通用婚龄建议。",
+      "correction": "删去“倪师建议共同旅行”等无出处归因。",
+      "claims": [
+        {
+          "text": "课程有一段同时讨论破军落夫妻宫或福德宫的婚姻语境。",
+          "sources": [
+            "tj-56e0073c2037"
+          ]
+        },
+        {
+          "text": "另一个提到晚婚的段落承接的是破军子午英星入庙，不能把这段改写为破军入夫妻宫一律晚婚。",
+          "sources": [
+            "tj-6b0e318a1b32",
+            "tj-5432baf19f8f",
+            "tj-9225f612c6a2"
+          ]
+        }
+      ]
+    },
+    "天梁/love": {
+      "heading": "天梁在夫妻宫：午宫会科禄的案例",
+      "scope": "仅为特定案例的职业解释。",
+      "correction": "撤下恋爱波折后必白头到老的保证。",
+      "claims": [
+        {
+          "text": "课程在一个夫妻宫天梁在午的案例中，连同化科与官权带禄讨论配偶的职业，并以银行主管作可能解释。",
+          "sources": [
+            "tj-a6272c9565da"
+          ]
+        }
+      ]
+    },
+    "天相/love": {
+      "heading": "天相在夫妻宫：紫微天相案例",
+      "scope": "案例中是紫微天相的组合。",
+      "correction": "撤下亲上加亲、同学同事介绍等无对应细节。",
+      "claims": [
+        {
+          "text": "课程在夫妻宫紫微天相的案例中肯定配偶，同时强调配偶好与命主是否遭遇其他事情是两回事。",
+          "sources": [
+            "tj-eac1c3f31126"
+          ]
+        }
+      ]
+    },
+    "紫微/wealth": {
+      "heading": "紫微在财帛宫：紫微七杀的案例",
+      "scope": "课程对紫微七杀同见财帛宫的举例。",
+      "correction": "撤下名望、专业声誉、高端服务和财库丰盈等扩写。",
+      "claims": [
+        {
+          "text": "财帛宫紫微七杀的段落以私人企业或自己做事业说明，不能省略七杀这一组合条件。",
+          "sources": [
+            "tj-d2bc346dcccc"
+          ]
+        }
+      ]
+    },
+    "太阳/wealth": {
+      "heading": "太阳在财帛宫：正财横财用语与亮度",
+      "scope": "课程术语中的横财是收入不固定的经营语境，不等于意外暴富。",
+      "correction": "删除先名后利、品牌变现等现代扩写。",
+      "claims": [
+        {
+          "text": "课程在太阳财帛语境后，用固定薪资与做生意收入不定来区别正财和横财。",
+          "sources": [
+            "tj-8c8b118a5d86",
+            "tj-f2172c59b85f"
+          ]
+        },
+        {
+          "text": "后续财帛宫太阳落陷的讨论，还提出经商要看权、禄，不能只因太阳有财的含义便推断经商有利。",
+          "sources": [
+            "tj-021e15c83e98",
+            "tj-1970295f7bbd"
+          ]
+        }
+      ]
+    },
+    "天机/wealth": {
+      "heading": "天机在财帛宫：天机天同案例",
+      "scope": "原段是天机、天同共同出现的案例。",
+      "correction": "删去副业、资讯差、无需努力衣食无忧等单星扩写。",
+      "claims": [
+        {
+          "text": "课程在这一个财帛案例中同时提到天机、天同，并解释为在私人企业、公司行号做事。",
+          "sources": [
+            "tj-f20e3e4b5b58"
+          ]
+        }
+      ]
+    },
+    "天同/wealth": {
+      "heading": "天同在财帛宫：天机天同案例",
+      "scope": "原段是天机、天同共同出现的案例。",
+      "correction": "删去副业、资讯差、无需努力衣食无忧等单星扩写。",
+      "claims": [
+        {
+          "text": "课程在这一个财帛案例中同时提到天机、天同，并解释为在私人企业、公司行号做事。",
+          "sources": [
+            "tj-f20e3e4b5b58"
+          ]
+        }
+      ]
+    },
+    "破军/wealth": {
+      "heading": "破军在财帛宫：化科与专业的案例",
+      "scope": "破军、天钺、文曲化科同见，且身宫在财帛。",
+      "correction": "撤下颠覆风口、必暴富和投资收益类扩写。",
+      "claims": [
+        {
+          "text": "课程先交代身宫在财帛，再列破军、天钺、文曲化科，后续依据化科讨论专业技术和才艺，不能把专业结论只归给破军。",
+          "sources": [
+            "tj-e8166c0351a7",
+            "tj-7b2a75ed8328",
+            "tj-7d86eb275040"
+          ]
+        }
+      ]
+    },
+    "紫微/move": {
+      "heading": "紫微在迁移宫：辅弼与宫位转换",
+      "scope": "一个是紫微在子无辅弼的例子，另一个是紫破会辅弼。",
+      "correction": "删除大都市、高规格平台以及一律外地有利的推论。",
+      "claims": [
+        {
+          "text": "迁移宫紫微在子的案例同时讨论外出遇贵人与缺少辅弼时的孤单，并非只有有利的一面。",
+          "sources": [
+            "tj-06b51df01eeb",
+            "tj-cf908e3ca54f",
+            "tj-b9a3e7bf3170"
+          ]
+        },
+        {
+          "text": "另一段紫微破军会辅弼的案例还说明：命宫和迁移宫位置调换，解释也需随之变化。",
+          "sources": [
+            "tj-a1542a64d7aa",
+            "tj-b3b6be842341"
+          ]
+        }
+      ]
+    },
+    "巨门/friends": {
+      "heading": "巨门在交友宫：化忌与组合条件",
+      "scope": "语料的负面例子含化忌或其他煞曜。",
+      "correction": "撤下巨门独见必朋友反目，以及账目清楚即可避免绝大多数是非的保证。",
+      "claims": [
+        {
+          "text": "交友宫总论将空耗煞曜、化忌、巨门等一并作为合作的负面语境；后面一个具体例子明确是巨门化忌。",
+          "sources": [
+            "tj-c73328b7acc3",
+            "tj-559db483a711"
+          ]
+        }
+      ]
+    },
+    "天机/friends": {
+      "heading": "天机在交友宫：天马与会星案例",
+      "scope": "只记录天机天马及权财吉星的条件。",
+      "correction": "撤下朋友圈流动、口头承诺多等无对应描述。",
+      "claims": [
+        {
+          "text": "课程先列交友宫天机、天马，随后说天机平和，并以朋友宫会权、财和吉星说明合作语境。",
+          "sources": [
+            "tj-e9d43e0c5257",
+            "tj-608ad7623e86"
+          ]
+        }
+      ]
+    },
+    "武曲/home": {
+      "heading": "武曲在田宅宫：大限案例的条件",
+      "scope": "36至45岁进入田宅的大限例子，不是本命单星必然增产。",
+      "correction": "删除所有武曲田宅都善置产、武府必藏富的概括。",
+      "claims": [
+        {
+          "text": "课程在36至45岁的大限例子中以田宅武曲说明产业累积，紧接着还交代对面科禄及紫微天府的会照。",
+          "sources": [
+            "tj-a5047e6b63e6",
+            "tj-9abd772a4cf1"
+          ]
+        }
+      ]
+    },
+    "巨门/home": {
+      "heading": "巨门与田宅：入庙及科禄条件",
+      "scope": "两段分别是星性总论和个案，不可互相替换前提。",
+      "correction": "撤下隔音、采光、房屋偏好等无对应推测。",
+      "claims": [
+        {
+          "text": "巨门总论以入庙及双禄、禄马交驰说明豪门宅地的例子。",
+          "sources": [
+            "tj-272aaa07b21b",
+            "tj-0f6642851966"
+          ]
+        },
+        {
+          "text": "另一案例连同化科、化禄进入田宅谈祖业，并提到父母宫的巨门。",
+          "sources": [
+            "tj-a8928269934a"
+          ]
+        }
+      ]
+    },
+    "紫微/family": {
+      "heading": "紫微在兄弟宫：紫微天相组合",
+      "scope": "一个是紫微天相组合，另一个沿用紫微天相化权语境。",
+      "correction": "删除手足性格、股权分工、合伙必稳定等扩写。",
+      "claims": [
+        {
+          "text": "课程有兄弟宫紫微天相的得力例子；另段由父母宫紫微天相化权转谈兄弟与子女等宫位，说明解释对象随宫位变化。",
+          "sources": [
+            "tj-c6aacea670ee",
+            "tj-e8e598a77936",
+            "tj-3a20543b70fe"
+          ]
+        }
+      ]
+    },
+    "天相/family": {
+      "heading": "天相在兄弟宫：紫微天相组合",
+      "scope": "一个是紫微天相组合，另一个沿用紫微天相化权语境。",
+      "correction": "删除手足性格、股权分工、合伙必稳定等扩写。",
+      "claims": [
+        {
+          "text": "课程有兄弟宫紫微天相的得力例子；另段由父母宫紫微天相化权转谈兄弟与子女等宫位，说明解释对象随宫位变化。",
+          "sources": [
+            "tj-c6aacea670ee",
+            "tj-e8e598a77936",
+            "tj-3a20543b70fe"
+          ]
+        }
+      ]
+    },
+    "紫微/parents": {
+      "heading": "紫微在父母宫：紫微天相化权案例",
+      "scope": "此处来源明确包含紫微、天相及化权。",
+      "correction": "撤下单星即可推出父母威严、衣着家教或厚荫的描述。",
+      "claims": [
+        {
+          "text": "课程在父母宫紫微天相化权的案例中谈父母的官职语境，随后演示相同组合换到其他宫位时解释对象也改变。",
+          "sources": [
+            "tj-e8e598a77936",
+            "tj-3a20543b70fe"
+          ]
+        }
+      ]
+    },
+    "天相/parents": {
+      "heading": "天相在父母宫：紫微天相化权案例",
+      "scope": "此处来源明确包含紫微、天相及化权。",
+      "correction": "撤下单星即可推出父母威严、衣着家教或厚荫的描述。",
+      "claims": [
+        {
+          "text": "课程在父母宫紫微天相化权的案例中谈父母的官职语境，随后演示相同组合换到其他宫位时解释对象也改变。",
+          "sources": [
+            "tj-e8e598a77936",
+            "tj-3a20543b70fe"
+          ]
+        }
+      ]
+    },
+    "太阳/parents": {
+      "heading": "太阳与父母宫：父亲象征的语境",
+      "scope": "传统父星象征与父母宫具体组合分开。",
+      "correction": "撤下父亲必有地位、早年必承担家庭责任等单星推断。",
+      "claims": [
+        {
+          "text": "课程把太阳、太阴比作父母，在父母宫举例中又明确以太阳对应父亲。",
+          "sources": [
+            "tj-e9732153239e",
+            "tj-33aefdb129ba"
+          ]
+        },
+        {
+          "text": "另一个父母宫日月同亮的案例，将旺父母解释为对家里孝顺。",
+          "sources": [
+            "tj-9deeab669c0d"
+          ]
+        }
+      ]
+    },
+    "太阴/parents": {
+      "heading": "太阴与父母宫：母亲象征的语境",
+      "scope": "传统象征不是健康或寿命证据。",
+      "correction": "撤下对母亲健康、父母温婉品格及家教方式的单星推断。",
+      "claims": [
+        {
+          "text": "课程在父母语境中以太阳对应父亲、太阴对应母亲。",
+          "sources": [
+            "tj-e9732153239e",
+            "tj-9deeab669c0d"
+          ]
+        },
+        {
+          "text": "日月同亮的父母宫案例，其解释包括对家庭孝顺，不能仅转述为母亲身体好。",
+          "sources": [
+            "tj-9deeab669c0d"
+          ]
+        }
+      ]
+    },
+    "紫微/spirit": {
+      "heading": "紫微在福德宫：是否有辅弼",
+      "scope": "课程的女命例子与后续会星条件。",
+      "correction": "撤下晚年必从容、精神必高雅等无对应扩写。",
+      "claims": [
+        {
+          "text": "早段以女命福德宫单独紫微谈孤单，后段则区分紫微在福德同时有辅弼与只有辅弼的情形。",
+          "sources": [
+            "tj-492a240cf59b",
+            "tj-d9334df68686"
+          ]
+        }
+      ]
+    },
+    "七杀/spirit": {
+      "heading": "七杀在福德宫：先分清身宫条件",
+      "scope": "原文先说明身宫与福德宫同宫，之后着重论身宫。",
+      "correction": "撤下备战心理、高强度运动疗效等扩写，也不把身宫断语套给所有福德宫七杀。",
+      "claims": [
+        {
+          "text": "课程举福德宫七杀时，马上补充身宫也在该宫，并提醒这一段关注的是七杀临身。",
+          "sources": [
+            "tj-cf26b1e4f756",
+            "tj-a1e19df68fcc"
+          ]
+        }
+      ]
+    }
+  }
+}

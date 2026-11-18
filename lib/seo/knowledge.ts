@@ -2,12 +2,14 @@
  * SEO 知识页 — 数据 helper
  *
  * 14 主星 × 13 topic = 182 个独立 SEO URL
- * 每页都是 STAR_DB 中对应字段的 4 段 markers（一句话定调/核心论断/命盘依据/经典出处）
+ * 未确认的专题可阅读原稿。校订状态独立于搜索收录。
  */
 
 import { STAR_DB } from '@/lib/ziwei/db-analysis';
 import type { TopicKey } from '@/lib/ziwei/db-analysis';
 import { TOPIC_PALACE_NAME, TOPIC_LABEL } from '@/lib/ziwei/db-analysis';
+import { KNOWLEDGE_REVIEWS, type KnowledgeReview } from './knowledge-review';
+import originalDraft from '@/docs/knowledge-review/original-draft.json';
 
 export const ALL_STARS = [
   '紫微', '天机', '太阳', '武曲', '天同', '廉贞', '天府',
@@ -116,6 +118,8 @@ export interface KnowledgeData {
   heading: string;
   parsed: ParsedContent;
   exists: boolean;
+  review?: KnowledgeReview;
+  hasReviewedSources: boolean;
 }
 
 export function getKnowledge(star: string, topic: TopicKey): KnowledgeData {
@@ -123,44 +127,43 @@ export function getKnowledge(star: string, topic: TopicKey): KnowledgeData {
   const field = TOPIC_TO_FIELD[topic];
   const content = profile && field ? (profile[field] as string | undefined) ?? '' : '';
   const palaceName = TOPIC_PALACE_NAME[topic];
-  const fullPalaceName = palaceName?.endsWith('宫') ? palaceName : `${palaceName}宫`;
+  const fullPalaceName = palaceName ? (palaceName.endsWith('宫') ? palaceName : `${palaceName}宫`) : '';
+  const review = KNOWLEDGE_REVIEWS[`${star}/${topic}`];
   return {
     star,
     topic,
     topicLabel: TOPIC_LABEL[topic],
     palaceName: fullPalaceName,
-    heading: topic === 'personality' ? `${star}星坐命的性格特点` : `${star}星入${fullPalaceName}`,
+    heading: review?.heading ?? (topic === 'personality' ? `${star}星的性格专题` : `${star}星入${fullPalaceName}`),
     parsed: parseStarContent(content),
-    exists: Boolean(content),
+    exists: ALL_STARS.includes(star) && ALL_TOPICS.includes(topic),
+    review,
+    hasReviewedSources: Boolean(review?.claims.length),
   };
 }
 
+export function getUnconfirmedDraft(star: string, topic: TopicKey) {
+  const articles: Record<string, StarContent> = originalDraft.articles;
+  const draft = parseStarContent(articles[star]?.[TOPIC_TO_FIELD[topic]] ?? '');
+  return [
+    { title: '原稿摘要', text: draft.dingdiao },
+    { title: '原稿正文', text: draft.lundian },
+  ].filter(section => section.text);
+}
+
 /** 生成所有 14×13 组合（用于 generateStaticParams） */
-export function getAllKnowledgeRoutes() {
+export function getAllKnowledgeRoutes(reviewedOnly = false) {
   const routes: { star: string; slug: string; topic: TopicKey }[] = [];
   for (const star of ALL_STARS) {
     for (const topic of ALL_TOPICS) {
       const data = getKnowledge(star, topic);
-      if (data.exists) routes.push({ star, slug: STAR_TO_SLUG[star], topic });
+      if (data.exists && (!reviewedOnly || data.hasReviewedSources)) routes.push({ star, slug: STAR_TO_SLUG[star], topic });
     }
   }
   return routes;
 }
 
-/** 主星属性简介（用于 SEO 页"了解 XX 星"section） */
-export const STAR_BRIEF_SEO: Record<string, string> = {
-  '紫微': '紫微为帝星，主尊贵，化气为尊。落命主有领导气场、宜大平台高位。',
-  '天机': '天机为智慧星，主善变机灵，化气为善。落命主聪明机变、宜辅佐策划。',
-  '太阳': '太阳为男贵星，主名誉公务，化气为贵。落命主光明磊落、宜公职名声。',
-  '武曲': '武曲为财星，主刚毅果决，化气为财。落命主理财能力强、宜实业金融。',
-  '天同': '天同为福星，主温和享乐，化气为福。落命主性情温和、有福气。',
-  '廉贞': '廉贞为次桃花星，文武兼备，化气为囚。落命主多才多艺、感情丰富。',
-  '天府': '天府为南帝守财星，主稳重保守，化气为令。落命主品行端正、善守财库。',
-  '太阴': '太阴为月亮富贵星，主田宅富贵，化气为富。落命主感情细腻、女命最吉。',
-  '贪狼': '贪狼为桃花欲望星，多才多社交，化气为桃花。落命主多才艺、社交广。',
-  '巨门': '巨门为是非口才星，主辩论传媒，化气为暗。落命主口才好、宜律师教师。',
-  '天相': '天相为印星辅佐，主忠厚老实，化气为印。落命主品行端正、宜行政法务。',
-  '天梁': '天梁为老人星荫星，善逢凶化吉，化气为荫。落命主慈悲善良、宜法律医学。',
-  '七杀': '七杀为将星，主孤独果决冒险，化气为肃杀。落命主刚毅果决、宜军警创业。',
-  '破军': '破军为破坏创新星，主六亲缘薄，化气为耗。落命主开创变动、宜技术专长。',
-};
+/** Index cards use reviewed topic headings instead of unreferenced star claims. */
+export const STAR_BRIEF_SEO: Record<string, string> = Object.fromEntries(
+  ALL_STARS.map(star => [star, KNOWLEDGE_REVIEWS[`${star}/overview`]?.heading ?? `${star}星专题`]),
+);

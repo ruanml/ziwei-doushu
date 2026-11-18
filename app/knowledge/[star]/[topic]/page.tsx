@@ -19,14 +19,15 @@ import {
   ALL_STARS,
   ALL_TOPICS,
   getKnowledge,
+  getUnconfirmedDraft,
   getAllKnowledgeRoutes,
-  STAR_BRIEF_SEO,
   STAR_TO_SLUG,
   SLUG_TO_STAR,
 } from '@/lib/seo/knowledge';
 import { SITE_URL } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo/metadata';
-import { KNOWLEDGE_UPDATED_AT, STAR_LECTURES } from '@/lib/seo/knowledge-sources';
+import { KNOWLEDGE_UPDATED_AT } from '@/lib/seo/knowledge-sources';
+import { KNOWLEDGE_SOURCES } from '@/lib/seo/knowledge-review';
 import { READING_GUIDE } from '@/lib/seo/reading-guide';
 
 // Only publish the star/topic pairs backed by actual content.
@@ -45,9 +46,9 @@ export async function generateMetadata({ params }: { params: Promise<{ star: str
   const data = getKnowledge(star, topic as TopicKey);
   if (!data.exists) return {};
 
-  const title = `${data.heading} · ${data.topicLabel} · 紫微命盘`;
+  const title = `${data.heading}${data.hasReviewedSources ? '' : ' · 未确认'} · 紫微命盘`;
   const description = data.parsed.dingdiao
-    || `${data.heading}的传统命理学习笔记，说明适用条件与参考资料。`;
+    || `${data.heading}原稿（未确认）。具体说法与出处尚待核对。`;
 
   return {
     ...pageMetadata({ title, description, type: 'article', path: `/knowledge/${slug}/${topic}` }),
@@ -65,12 +66,34 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
   if (!star) notFound();
   const data = getKnowledge(star, topic as TopicKey);
   if (!data.exists) notFound();
-  const lecture = STAR_LECTURES[star];
+  const review = data.review;
+  if (!review) {
+    return (
+      <main className="max-w-3xl mx-auto px-6 py-12" style={{ color: 'var(--tx-0)' }}>
+        <Link href="/knowledge">← 返回知识库</Link>
+        <article>
+          <h1 className="text-3xl font-bold mt-8 mb-6">{data.heading} · 未确认</h1>
+          <Section title="阅读提示" gradient>
+            <p className="leading-loose">以下为校订前的原稿，具体说法、适用条件与归因均待核对。</p>
+            <p className="leading-loose mt-2">{READING_GUIDE[data.topic]}</p>
+          </Section>
+          {getUnconfirmedDraft(star, data.topic).map(section => (
+            <Section key={section.title} title={`${section.title} · 未确认`}>
+              <p className="whitespace-pre-wrap leading-loose">{section.text}</p>
+            </Section>
+          ))}
+        </article>
+        <p className="mt-6"><Link href={`/knowledge/${slug}/overview`} className="underline">阅读{star}星已列源的基础专题 →</Link></p>
+        <p className="mt-4"><Link href="/about" className="underline">查看内容校订方法</Link></p>
+      </main>
+    );
+  }
+  const sourceIds = [...new Set(review.claims.flatMap(claim => claim.sources))];
 
   // 同主星其他 topic
-  const otherTopicsForStar = ALL_TOPICS.filter(t => t !== topic && getKnowledge(star, t).exists);
+  const otherTopicsForStar = ALL_TOPICS.filter(t => t !== topic && getKnowledge(star, t).hasReviewedSources);
   // 同 topic 其他主星
-  const otherStarsForTopic = ALL_STARS.filter(s => s !== star && getKnowledge(s, topic as TopicKey).exists);
+  const otherStarsForTopic = ALL_STARS.filter(s => s !== star && getKnowledge(s, topic as TopicKey).hasReviewedSources);
 
   // JSON-LD
   const jsonLd = {
@@ -86,7 +109,8 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
     },
     dateModified: KNOWLEDGE_UPDATED_AT,
     mainEntityOfPage: `${SITE_URL}/knowledge/${slug}/${topic}`,
-    articleSection: '紫微斗数 · 倪海厦体系',
+    articleSection: '紫微斗数 · 课程与古籍学习整理',
+    citation: sourceIds.map(id => KNOWLEDGE_SOURCES[id].url),
     keywords: [`紫微斗数`, star, data.palaceName, data.topicLabel].join(', '),
   };
 
@@ -123,16 +147,11 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         {/* 标题区 */}
         <header style={{ marginBottom: '36px' }}>
           <div style={{ fontSize: '11px', color: 'var(--tx-3)', letterSpacing: '0.25em', marginBottom: '8px' }}>
-            {data.topicLabel} · 倪海厦体系详解
+            {data.topicLabel} · 出处对照笔记
           </div>
           <h1 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 700, color: 'var(--tx-0)', letterSpacing: '0.1em', lineHeight: 1.2 }}>
             {data.heading}
           </h1>
-          {STAR_BRIEF_SEO[star] && (
-            <p style={{ fontSize: '13px', color: 'var(--tx-2)', marginTop: '14px', lineHeight: 1.8 }}>
-              {STAR_BRIEF_SEO[star]}
-            </p>
-          )}
           <p className="text-xs mt-4" style={{ color: 'var(--tx-2)' }}>
             <Link href="/about">整理：紫微命盘 · 内容方法</Link>
             {' · 更新：'}<time dateTime={KNOWLEDGE_UPDATED_AT}>{KNOWLEDGE_UPDATED_AT}</time>
@@ -140,45 +159,51 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         </header>
 
         <Section title="阅读范围" minimal>
-          <p className="text-sm leading-loose">以下为传统命理学习整理，不是个人命盘结论，也不是倪师逐字原话。单颗星的概述需要结合完整组合阅读。</p>
+          <p className="text-sm leading-loose">{review.scope}</p>
+          <p className="text-sm leading-loose mt-2">以下是课程或古籍观点的转述，不是逐字引文、个人命盘结论或经科学验证的预测。本轮已对照仓库转录文本或古籍电子录文，尚未回听视频或核对影印底本。</p>
         </Section>
 
-        {/* 学习整理 */}
-        {data.parsed.dingdiao && (
-          <Section title="一句话定调" gradient>
-            <p style={{ fontSize: '17px', color: 'var(--tx-0)', lineHeight: 1.9, fontWeight: 500, letterSpacing: '0.04em' }}>
-              {data.parsed.dingdiao}
-            </p>
-          </Section>
-        )}
+        <Section title="逐句整理与出处">
+          <ol className="list-decimal pl-5 space-y-5 text-sm leading-loose">
+            {review.claims.map((claim, i) => (
+              <li key={i} id={`claim-${i + 1}`}>
+                {claim.text}
+                <span className="ml-2">
+                  {claim.sources.map(id => <a key={id} href={`#source-${id}`} className="underline mr-2" aria-label={`查看出处 ${sourceIds.indexOf(id) + 1}`}>[{sourceIds.indexOf(id) + 1}]</a>)}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </Section>
 
-        {data.parsed.lundian && (
-          <Section title="核心论断">
-            <div style={{ fontSize: '15px', color: 'var(--tx-0)', lineHeight: 2, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>
-              {data.parsed.lundian}
-            </div>
-          </Section>
-        )}
-
-        {data.parsed.yiju && (
-          <Section title="命盘依据">
-            <div style={{ fontSize: '14px', color: 'var(--tx-0)', lineHeight: 2, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>
-              {data.parsed.yiju}
-            </div>
-          </Section>
-        )}
+        <Section title="本次校订说明" minimal>
+          <p className="text-sm leading-loose">{review.correction}</p>
+        </Section>
 
         <Section title="适用条件与核对方法">
           <p className="text-sm leading-loose">{READING_GUIDE[topic as TopicKey]}</p>
         </Section>
 
-        <Section title="参考资料与回看入口" minimal>
-          <p className="text-sm leading-loose">
-            <a href={lecture.url} className="underline">《天纪》{star}星讲解 · {lecture.subject} · 视频 P{lecture.part} {lecture.time}</a>
-          </p>
-          <p className="text-xs leading-loose mt-2" style={{ color: 'var(--tx-2)' }}>
-            此入口用于核对{star}星的基础讲解，不是本文所有宫位结论的逐条引证。
-            具体断语仍需核对课程上下文与成立条件。<Link href="/about" className="underline">查看内容整理方法</Link>。
+        <Section title="出处与回看入口" minimal>
+          <ol className="list-decimal pl-5 space-y-4 text-sm leading-loose">
+            {sourceIds.map(id => {
+              const source = KNOWLEDGE_SOURCES[id];
+              return (
+                <li key={id} id={`source-${id}`}>
+                  <a href={source.url} className="underline">{source.label}</a>
+                  {source.kind === 'transcript' && (
+                    <> · <a className="underline" href={`https://github.com/ruanml/ziwei-doushu/blob/cf2ec02/docs/tianji-ziwei/entries.jsonl#L${source.line}`}>转录条目 {source.line}</a></>
+                  )}
+                  <p className="text-xs" style={{ color: 'var(--tx-2)' }}>{source.kind === 'transcript' ? '核对层级：转录文本；原视频尚未回听。' : '核对层级：古籍电子录文；影印底本尚未核对。'}</p>
+                  {/勘误|疑误/.test(source.note) && <p className="text-xs" style={{ color: 'var(--tx-2)' }}>来源附注：{source.note}</p>}
+                </li>
+              );
+            })}
+          </ol>
+          <p className="text-xs leading-loose mt-4" style={{ color: 'var(--tx-2)' }}>
+            课程与转录整理署名：倪海厦《天纪》、nihai-tianji-corpus 项目；本站作摘意整理并列明条件。
+            课程整理部分按 <a className="underline" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a> 提供。
+            <Link href="/about" className="underline">查看完整来源与整理方法</Link>。
           </p>
         </Section>
 
@@ -195,7 +220,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
             想看你自己命盘的{data.topicLabel}？
           </div>
           <div style={{ fontSize: '12px', color: 'var(--tx-2)', marginBottom: '16px' }}>
-            输入生辰起盘 · 倪师正宗解读 · AI 答疑伴学
+            输入生辰起盘 · 结合完整组合阅读 · AI 答疑伴学
           </div>
           <Link href="/chart" style={{
             display: 'inline-block',

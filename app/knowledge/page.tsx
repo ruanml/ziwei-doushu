@@ -4,14 +4,14 @@
  */
 
 import Link from 'next/link';
-import { ALL_STARS, ALL_TOPICS, getKnowledge, STAR_BRIEF_SEO, STAR_TO_SLUG } from '@/lib/seo/knowledge';
+import { ALL_STARS, ALL_TOPICS, getKnowledge, getAllKnowledgeRoutes, STAR_BRIEF_SEO, STAR_TO_SLUG } from '@/lib/seo/knowledge';
 import { TOPIC_LABEL } from '@/lib/ziwei/db-analysis';
 import { pageMetadata } from '@/lib/seo/metadata';
 
 export const metadata = pageMetadata({
   path: '/knowledge',
   title: '紫微斗数知识库 · 十四主星与十二宫位解读',
-  description: '了解紫微斗数十四主星的十二宫位与性格专题，区分星性概述、组合条件和参考资料，结合完整命盘学习传统命理。',
+  description: '按具体课程位置阅读紫微斗数十四主星专题，每条整理附转录文本或古籍电子录文出处，并说明组合条件与校订范围。',
 });
 
 export default function KnowledgeHomePage() {
@@ -44,8 +44,10 @@ export default function KnowledgeHomePage() {
           紫微斗数知识库
         </h1>
         <p style={{ fontSize: '14px', color: 'var(--tx-2)', letterSpacing: '0.08em', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-          14 主星 × 13 专题（十二宫位＋性格）= <strong style={{ color: 'var(--ac)' }}>{ALL_STARS.length * ALL_TOPICS.length}</strong> 项专题<br />
-          传统命理学习整理 · 附课程回看入口与适用范围
+          十四主星 · <strong style={{ color: 'var(--ac)' }}>{getAllKnowledgeRoutes().length}</strong> 项专题<br />
+          {getAllKnowledgeRoutes(true).length} 项逐句列源，其余标为「未确认」<br />
+          已对照转录文本或古籍电子录文 · 尚未回听视频或校对影印底本<br />
+          <Link href="/about" className="underline">查看校订方法</Link>
         </p>
       </div>
 
@@ -101,7 +103,6 @@ export default function KnowledgeHomePage() {
               <div className="flex flex-wrap gap-2">
                 {ALL_TOPICS.map(t => {
                   const k = getKnowledge(star, t);
-                  if (!k.exists) return null;
                   return (
                     <Link
                       key={t}
@@ -116,7 +117,8 @@ export default function KnowledgeHomePage() {
                         textDecoration: 'none',
                       }}
                     >
-                      {t === 'personality' ? '性格特质' : `入${k.palaceName} · ${TOPIC_LABEL[t]}`}
+                      {TOPIC_LABEL[t]}
+                      {!k.hasReviewedSources && <span className="ml-1" style={{ color: 'var(--ac)', fontWeight: 600 }}>· 未确认</span>}
                     </Link>
                   );
                 })}
