@@ -319,22 +319,19 @@ export default function ChartPage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg-0)', color: 'var(--tx-1)' }}>
       {/* 顶栏 */}
       <header
+        className="flex min-h-[52px] flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 sm:flex-nowrap sm:px-6"
         style={{
           position: 'sticky',
           top: 0,
           zIndex: 50,
-          height: '52px',
           background: 'color-mix(in srgb, var(--bg-0) 90%, transparent)',
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
           borderBottom: '1px solid var(--bdr-med)',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 24px',
-          gap: '12px',
         }}
       >
         <a
+          className="shrink-0 whitespace-nowrap"
           href="/"
           onClick={e => { confirmLeaveIfActive(e); }}
           style={{
@@ -351,6 +348,7 @@ export default function ChartPage() {
         </a>
         <div style={{ width: '1px', height: '16px', background: 'var(--bdr-med)' }} />
         <span
+          className="whitespace-nowrap"
           style={{
             fontFamily: 'var(--font-serif)',
             fontSize: '14px',
@@ -361,74 +359,75 @@ export default function ChartPage() {
         >
           ✦ 紫微斗数排盘
         </span>
-        <div style={{ flex: 1 }} />
-        {chart && (
-          <>
-            <span
-              style={{
-                fontSize: '11px',
-                color: 'var(--tx-3)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
-              className="hidden sm:inline-flex"
-            >
-              ✓ {saveNotice || '已自动保存'}
-            </span>
-            <button
-              type="button"
-              onClick={handleExportReport}
-              style={{
-                padding: '5px 13px',
-                cursor: 'pointer',
-                border: '1px solid var(--ac-bdr)',
-                borderRadius: 'var(--r-pill)',
-                background: 'var(--ac-bg)',
-                color: 'var(--ac)',
-                fontSize: '12px',
-                fontWeight: 500,
-              }}
-            >
-              ⬇ 保存命盘与解读
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (confirmLeaveIfActive()) {
-                  setChart(null);
-                  setSelectedPalace(null);
-                }
-              }}
-              style={{
-                padding: '5px 13px',
-                cursor: 'pointer',
-                border: '1px solid var(--bdr-med)',
-                borderRadius: 'var(--r-pill)',
-                background: 'var(--bg-card)',
-                color: 'var(--tx-1)',
-                fontSize: '12px',
-              }}
-            >
-              重新起盘
-            </button>
-          </>
-        )}
-        <a
-          href="/heming"
-          onClick={e => { confirmLeaveIfActive(e); }}
-          style={{
-            padding: '5px 13px',
-            borderRadius: 'var(--r-pill)',
-            border: '1px solid var(--bdr-med)',
-            background: 'transparent',
-            color: 'var(--tx-2)',
-            fontSize: '12px',
-            textDecoration: 'none',
-          }}
-        >
-          双人合盘 →
-        </a>
+        <div className={`ml-auto flex flex-wrap items-center justify-end gap-2 whitespace-nowrap sm:w-auto sm:flex-nowrap sm:gap-3 ${chart ? 'w-full' : ''}`}>
+          {chart && (
+            <>
+              <span
+                style={{
+                  fontSize: '11px',
+                  color: 'var(--tx-3)',
+                  alignItems: 'center',
+                  gap: '4px',
+                }}
+                className="hidden sm:inline-flex"
+              >
+                ✓ {saveNotice || '已自动保存'}
+              </span>
+              <button
+                type="button"
+                onClick={handleExportReport}
+                style={{
+                  padding: '5px 13px',
+                  cursor: 'pointer',
+                  border: '1px solid var(--ac-bdr)',
+                  borderRadius: 'var(--r-pill)',
+                  background: 'var(--ac-bg)',
+                  color: 'var(--ac)',
+                  fontSize: '12px',
+                  fontWeight: 500,
+                }}
+              >
+                <span className="sm:hidden">⬇ 保存报告</span>
+                <span className="hidden sm:inline">⬇ 保存命盘与解读</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (confirmLeaveIfActive()) {
+                    setChart(null);
+                    setSelectedPalace(null);
+                  }
+                }}
+                style={{
+                  padding: '5px 13px',
+                  cursor: 'pointer',
+                  border: '1px solid var(--bdr-med)',
+                  borderRadius: 'var(--r-pill)',
+                  background: 'var(--bg-card)',
+                  color: 'var(--tx-1)',
+                  fontSize: '12px',
+                }}
+              >
+                重新起盘
+              </button>
+            </>
+          )}
+          <a
+            href="/heming"
+            onClick={e => { confirmLeaveIfActive(e); }}
+            style={{
+              padding: '5px 13px',
+              borderRadius: 'var(--r-pill)',
+              border: '1px solid var(--bdr-med)',
+              background: 'transparent',
+              color: 'var(--tx-2)',
+              fontSize: '12px',
+              textDecoration: 'none',
+            }}
+          >
+            双人合盘 →
+          </a>
+        </div>
       </header>
 
       {/* ── 未起盘：展示出生信息表单 + 已保存的命盘与解读记录 ── */}
@@ -471,7 +470,7 @@ export default function ChartPage() {
         </main>
       ) : (
         /* ── 已起盘：命盘 + 解读（桌面端左右等高对齐） ── */
-        <main style={{ maxWidth: 1280, margin: '0 auto', padding: '20px 16px 48px' }}>
+        <main className="mx-auto w-full max-w-screen-xl px-2 pt-5 pb-12 sm:px-4">
           <ChartNavigationGuard
             onConfirmBack={() => {
               setChart(null);

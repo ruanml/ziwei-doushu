@@ -111,7 +111,7 @@ export default function PalaceCell({
       }}
     >
       {/* ── 上半区：主星 + 辅煞杂曜 ── */}
-      <div className="p-2.5 pb-1.5 flex flex-col gap-1.5 flex-1">
+      <div className="min-w-0 px-1 sm:px-2.5 pt-2.5 pb-1.5 flex flex-col gap-1.5 flex-1">
         {/* 主星列表 */}
         <div className="flex flex-col gap-1">
           {majorStars.length === 0 && (
@@ -240,7 +240,7 @@ export default function PalaceCell({
 
       {/* ── 底部宫位信息栏（干支 · 大限 · 宫名） ── */}
       <div
-        className="px-2.5 py-1.5 flex items-center justify-between gap-1"
+        className="px-1 sm:px-2.5 py-1.5 flex flex-wrap items-center justify-between gap-1"
         style={{
           borderTop: '1px solid var(--t-border)',
           background: isMingGong
@@ -258,7 +258,7 @@ export default function PalaceCell({
         {/* 大限年龄段 */}
         {daXianAge && (
           <span
-            className="text-[11.5px] font-mono tabular-nums inline-flex items-center gap-1"
+            className="text-[11.5px] font-mono tabular-nums inline-flex flex-wrap items-center gap-1"
             style={{
               color: isCurrentDaXian ? 'var(--t-gold)' : 'var(--t-faint)',
               fontWeight: isCurrentDaXian ? 700 : 500,

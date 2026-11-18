@@ -88,7 +88,7 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
   const sanFangSet = sanFangBranches ? new Set(sanFangBranches) : null;
 
   return (
-    <div className="w-full select-none">
+    <div className="w-full min-w-0 select-none">
       {/* 时间导航轴 */}
       <TimeNav
         chart={chart}
@@ -113,7 +113,7 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
       <div
         className="grid rounded-xl overflow-hidden relative"
         style={{
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
           gridTemplateRows: 'repeat(4, auto)',
           gap: '1px',
           background: 'var(--t-border-acc)',
@@ -126,7 +126,7 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
           const palace = palaceMap[branch];
           if (!palace) return null;
           return (
-            <div key={branch} style={{ gridRow: row, gridColumn: col, background: 'var(--t-bg)' }}>
+            <div key={branch} className="min-w-0" style={{ gridRow: row, gridColumn: col, background: 'var(--t-bg)' }}>
               <PalaceCell
                 palace={palace}
                 onClick={() => handlePalaceClick(branch)}
@@ -147,18 +147,18 @@ export default function ChartBoard({ chart, onStarSelect, onPalaceSelect, onSiHu
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.35 }}
-          className="palace-center-tile flex flex-col items-center justify-center p-4 sm:p-5 gap-3"
+          className="palace-center-tile min-w-0 flex flex-col items-center justify-center p-4 sm:p-5 gap-3"
           style={{ gridRow: '2 / 4', gridColumn: '2 / 4', background: 'var(--t-card)' }}
         >
           <div
-            className="text-base sm:text-lg font-bold tracking-[0.22em]"
+            className="text-center text-sm sm:text-lg font-bold tracking-wider sm:tracking-[0.22em]"
             style={{ color: 'var(--t-gold)', fontFamily: 'var(--font-serif)' }}
           >
             ✦ 紫微斗数命盘 ✦
           </div>
 
           <div
-            className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 text-xs rounded-lg px-4 py-2.5"
+            className="grid max-w-full grid-cols-2 sm:grid-cols-3 gap-x-2 sm:gap-x-4 gap-y-1.5 text-xs rounded-lg px-2 sm:px-4 py-2.5"
             style={{
               background: 'var(--t-bg)',
               border: '1px solid var(--t-border-acc)',
